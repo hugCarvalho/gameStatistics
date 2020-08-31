@@ -37,20 +37,63 @@ const numOfWinsEachTeam = (matchReport) => {
   const teams = {};
   matchReport.forEach((game) => {
     const { playerA, playerB } = game;
-    if (playerA.won) {
-      teams[playerA.team]
-        ? (teams[playerA.team] += 1)
-        : (teams[playerA.team] = 1);
-    } else {
-      teams[playerB.team]
-        ? (teams[playerB.team] += 1)
-        : (teams[playerB.team] = 1);
-    }
+    if (teams[playerA.team] === undefined) teams[playerA.team] = 0;
+    if (teams[playerB.team] === undefined) teams[playerB.team] = 0;
+    if (playerA.won) teams[playerA.team] += 1;
+    if (playerB.won) teams[playerB.team] += 1;
   });
-  // console.log("RES", res, "TEAMS:", teams);
   return teams;
 };
-numOfWinsEachTeam(matchReport);
+const numOfDefeatsEachTeam = (matchReport) => {
+  const teams = {};
+  matchReport.forEach((game) => {
+    const { playerA, playerB } = game;
+    if (teams[playerA.team] === undefined) teams[playerA.team] = 0;
+    if (teams[playerB.team] === undefined) teams[playerB.team] = 0;
+    if (playerA.won) teams[playerB.team] += 1;
+    if (playerB.won) teams[playerA.team] += 1;
+  });
+  return teams;
+};
+
+// %
+const percentagesWinsAndLosses = (matchReport, type) => {
+  const totalGamesEachTeam = numOfGamesEachTeam(matchReport);
+  const totalGamesWonByEachTeam = numOfWinsEachTeam(matchReport);
+  const teamWinsPercentage = {};
+  const teamDefeatsPercentage = {};
+
+  const teams = Object.keys(totalGamesEachTeam);
+  teams.forEach((team) => {
+    const total = totalGamesEachTeam[team];
+    const wins = totalGamesWonByEachTeam[team];
+    if (type === "w")
+      teamWinsPercentage[team] = Math.round((wins * 100) / total);
+    else
+      teamDefeatsPercentage[team] = Math.round(((total - wins) * 100) / total);
+  });
+
+  return type === "w" ? teamWinsPercentage : teamDefeatsPercentage;
+};
+
+//Streaks
+const teamStreaks = (matchReport, result, team) => {
+  const gameResults = matchReport.map((game) => {
+    const { playerA, playerB } = game;
+    if (playerA.team === team && playerA.won) return "W";
+    if (playerA.team === team && !playerA.won) return "D";
+    if (playerB.team === team && playerA.won) return "W";
+    if (playerB.team === team) return "D";
+  });
+
+  let streak = 0;
+  for (let res of gameResults) {
+    if (res !== gameResults[0]) break;
+    if (res === result) streak += 1;
+  }
+  console.log(streak);
+  return streak > 1 ? streak - 1 : "none";
+};
 
 function TeamTable() {
   return (
@@ -61,11 +104,11 @@ function TeamTable() {
           <div className="items item--2">Games</div>
           <div className="items item--3">Wins</div>
           <div className="items item--4">Defeat</div>
-          <div className="items item--5">Defeat</div>
-          <div className="items item--6">% win</div>
-          <div className="items item--6">% Defeat</div>
-          <div className="items item--6">winning streak</div>
-          <div className="items item--6">losing streak</div>
+          <div className="items item--5">Wins %</div>
+          <div className="items item--6">Defeats %</div>
+          <div className="items item--6">Last 5 games</div>
+          <div className="items item--6">W streak</div>
+          <div className="items item--6">L streak</div>
           <div className="items item--6">Biggest win</div>
           <div className="items item--6">Biggest Defeat</div>
         </div>
@@ -75,14 +118,24 @@ function TeamTable() {
             {numOfGamesEachTeam(matchReport).Boston}
           </div>
           <div className="items item--3">
-            hee:{numOfWinsEachTeam(matchReport).Boston}
+            {numOfWinsEachTeam(matchReport).Boston}
           </div>
-          <div className="items item--4">Defeat</div>
-          <div className="items item--5">Defeat</div>
-          <div className="items item--6">% win</div>
-          <div className="items item--6">% Defeat</div>
-          <div className="items item--6">winning streak</div>
-          <div className="items item--6">losing streak</div>
+          <div className="items item--4">
+            {numOfDefeatsEachTeam(matchReport).Boston}
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "w").Boston}%
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "l").Boston}%
+          </div>
+          <div className="items item--6">Last 5 games</div>
+          <div className="items item--6">
+            {teamStreaks(matchReport, "W", "Boston")}
+          </div>
+          <div className="items item--6">
+            {teamStreaks(matchReport, "D", "Boston")}
+          </div>
           <div className="items item--6">Biggest win</div>
           <div className="items item--6">Biggest Defeat</div>
         </div>
