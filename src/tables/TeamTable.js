@@ -1,6 +1,7 @@
 import React from "react";
 import "./TeamTable.scss";
 import matchReport from "../stats/matchReports";
+import teamStats from "../stats/statsTeams";
 // import playersStats from "../stats/statsPlayers";
 // import StatsTeam from "../stats/statsTeams";
 
@@ -77,23 +78,58 @@ const percentagesWinsAndLosses = (matchReport, type) => {
 };
 
 //Streaks
-const teamStreaks = (matchReport, result, team) => {
-  const gameResults = matchReport.map((game) => {
-    const { playerA, playerB } = game;
-    if (playerA.team === team && playerA.won) return "W";
-    if (playerA.team === team && !playerA.won) return "D";
-    if (playerB.team === team && playerA.won) return "W";
-    if (playerB.team === team) return "D";
-  });
+const teamStreaksAndLast5Results = (matchReport, result, team) => {
+  const gameResults = matchReport
+    .map((game) => {
+      const { playerA, playerB } = game;
+      if (playerA.team === team && playerA.won) return "W";
+      else if (playerA.team === team && !playerA.won) return "D";
+      else if (playerB.team === team && playerA.won) return "W";
+      else return "D";
+    })
+    .filter((item) => item);
 
   let streak = 0;
   for (let res of gameResults) {
     if (res !== gameResults[0]) break;
     if (res === result) streak += 1;
   }
-  console.log(streak);
-  return streak > 1 ? streak - 1 : "none";
+  // console.log(gameResults);
+  //A streak must be at least 2 to be considered a streak, a single res is not enough
+  return streak > 1 ? [streak - 1, gameResults] : ["none", gameResults];
 };
+// console.log(teamStreaksAndLast5Results(matchReport, "W", "Los Angeles"));
+
+const teamResults = (matchReport, team, type) => {
+  const res = matchReport.map((game) => {
+    const { team: teamA, score: scoreA } = game.playerA;
+    const { team: teamB, score: scoreB } = game.playerB;
+    // const { teamB, scoreB } = game.playerB;
+    return [
+      [teamA, scoreA],
+      [teamB, scoreB],
+    ]; //, teamB, scoreB];
+  });
+
+  const won = res.filter(
+    (item) =>
+      (item[0][0] === team && item[0][1] === 4) ||
+      (item[1][0] === team && item[1][1] === 4)
+  );
+  const lost = res.filter(
+    (item) =>
+      (item[0][0] === team && item[0][1] < 4) ||
+      (item[1][0] === team && item[1][1] < 4)
+  );
+  // const lost = res.filter((item) => item[0][0] === team && item[0][1] < 4);
+  const opponentMinScore = Math.min(
+    ...won.map((item) => typeof item === "number")
+  );
+  const teamMinScore = lost.flatMap((item, i) => [item[0][1], item[1][1]]);
+  const WTF = Math.min(...teamMinScore);
+  return type === "W" ? `4 - ${opponentMinScore}` : `${WTF} - 4`;
+};
+teamResults(matchReport, "Boston");
 
 function TeamTable() {
   return (
@@ -129,15 +165,21 @@ function TeamTable() {
           <div className="items item--6">
             {percentagesWinsAndLosses(matchReport, "l").Boston}%
           </div>
-          <div className="items item--6">Last 5 games</div>
           <div className="items item--6">
-            {teamStreaks(matchReport, "W", "Boston")}
+            {teamStreaksAndLast5Results(matchReport, null, "Boston")[1]}
           </div>
           <div className="items item--6">
-            {teamStreaks(matchReport, "D", "Boston")}
+            {teamStreaksAndLast5Results(matchReport, "W", "Boston")[0]}
           </div>
-          <div className="items item--6">Biggest win</div>
-          <div className="items item--6">Biggest Defeat</div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "D", "Boston")[0]}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "Boston", "W")}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "Boston", "D")}
+          </div>
         </div>
       </section>
     </div>
