@@ -5,20 +5,11 @@ import teamStats from "../stats/statsTeams";
 // import playersStats from "../stats/statsPlayers";
 // import StatsTeam from "../stats/statsTeams";
 
-// const teamStats = {
-//   Boston: {
-//     games: 0,
-//     numOfWins: 0,
-//     numOfDefeats: 0,
-//     biggestWin: [],
-//     biggestLoss: [],
-//     winningStreak: 0,
-//     losingStreak: 0,
-//     LosAngeles: [],
-//     SanFrancisco: [],
-//     NewYork: [["w", 4, 0]], //Win || Loss, Boston,NewYork
-//   },
-// };
+//TODOS PRIORiTIES
+//TODO: move fn to dedicated file && refactor them
+//TODO: make reusable component for each team
+//TODO: make graph
+//TODO: add styling
 
 export const numOfGamesEachTeam = (reports) => {
   const obj = {};
@@ -78,23 +69,27 @@ const percentagesWinsAndLosses = (matchReport, type) => {
 };
 
 //Streaks
-const teamStreaksAndLast5Results = (matchReport, result, team) => {
+export const teamStreaksAndLast5Results = (matchReport, gameResult, team) => {
   const gameResults = matchReport
     .map((game) => {
       const { playerA, playerB } = game;
+      console.log("playerA.team", playerA.team);
+      console.log("playerA.won", playerA.won);
+      console.log("team", team);
+      console.log("----------");
       if (playerA.team === team && playerA.won) return "W";
-      else if (playerA.team === team && !playerA.won) return "D";
-      else if (playerB.team === team && playerA.won) return "W";
-      else return "D";
+      else if (playerA.team === team && playerB.won) return "D";
+      else if (playerB.team === team && playerA.won) return "D";
+      else return "W";
     })
     .filter((item) => item);
 
   let streak = 0;
   for (let res of gameResults) {
     if (res !== gameResults[0]) break;
-    if (res === result) streak += 1;
+    if (res === gameResult) streak += 1;
   }
-  // console.log(gameResults);
+  console.log("GAME RESULTS:->", gameResults);
   //A streak must be at least 2 to be considered a streak, a single res is not enough
   return streak > 1 ? [streak - 1, gameResults] : ["none", gameResults];
 };
@@ -148,6 +143,8 @@ function TeamTable() {
           <div className="items item--6">Biggest win</div>
           <div className="items item--6">Biggest Defeat</div>
         </div>
+
+        {/* Boston */}
         <div className="wrapper__team-stats Boston">
           <div className="items item--1">Boston</div>
           <div className="items item--2">
@@ -179,6 +176,111 @@ function TeamTable() {
           </div>
           <div className="items item--6">
             {teamResults(matchReport, "Boston", "D")}
+          </div>
+        </div>
+
+        {/* San Francisco */}
+        <div className="wrapper__team-stats San Francisco">
+          <div className="items item--1">San Francisco</div>
+          <div className="items item--2">
+            {numOfGamesEachTeam(matchReport)["San Francisco"]}
+          </div>
+          <div className="items item--3">
+            {numOfWinsEachTeam(matchReport)["San Francisco"]}
+          </div>
+          <div className="items item--4">
+            {numOfDefeatsEachTeam(matchReport)["San Francisco"]}
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "w")["San Francisco"]}%
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "l")["San Francisco"]}%
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, null, "San Francisco")[1]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "W", "San Francisco")[0]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "D", "San Francisco")[0]}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "San Francisco", "W")}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "San Francisco", "D")}
+          </div>
+        </div>
+
+        {/* New York */}
+        <div className="wrapper__team-stats New York">
+          <div className="items item--1">New York</div>
+          <div className="items item--2">
+            {numOfGamesEachTeam(matchReport)["New York"]}
+          </div>
+          <div className="items item--3">
+            {numOfWinsEachTeam(matchReport)["New York"]}
+          </div>
+          <div className="items item--4">
+            {numOfDefeatsEachTeam(matchReport)["New York"]}
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "w")["New York"]}%
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "l")["New York"]}%
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, null, "New York")[1]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "W", "New York")[0]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "D", "New York")[0]}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "New York", "W")}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "New York", "D")}
+          </div>
+        </div>
+
+        {/* Los Angeles */}
+        <div className="wrapper__team-stats Los Angeles">
+          <div className="items item--1">Los Angeles</div>
+          <div className="items item--2">
+            {numOfGamesEachTeam(matchReport)["Los Angeles"]}
+          </div>
+          <div className="items item--3">
+            {numOfWinsEachTeam(matchReport)["Los Angeles"]}
+          </div>
+          <div className="items item--4">
+            {numOfDefeatsEachTeam(matchReport)["Los Angeles"]}
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "w")["Los Angeles"]}%
+          </div>
+          <div className="items item--6">
+            {percentagesWinsAndLosses(matchReport, "l")["Los Angeles"]}%
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, null, "Los Angeles")[1]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "W", "Los Angeles")[0]}
+          </div>
+          <div className="items item--6">
+            {teamStreaksAndLast5Results(matchReport, "D", "Los Angeles")[0]}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "Los Angeles", "W")}
+          </div>
+          <div className="items item--6">
+            {teamResults(matchReport, "Los Angeles", "D")}
           </div>
         </div>
       </section>
