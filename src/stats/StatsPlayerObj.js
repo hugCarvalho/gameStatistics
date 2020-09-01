@@ -1,6 +1,9 @@
+import { numOfGamesPlayedByPlayer } from "./StatsPlayers";
+import matchReport from "./matchReports";
+
 const playersStats = {
   hugo: {
-    games: 0,
+    games: () => numOfGamesPlayedByPlayer(matchReport, "hugo"),
     wins: 0,
     defeats: 0,
     Boston: {

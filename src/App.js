@@ -2,7 +2,8 @@ import React from "react";
 import "./App.scss";
 import matchReport from "./stats/matchReports";
 // import teamStats from "./stats/statsTeams";
-import TeamTable from "./tables/TeamTable";
+import TeamTable from "./tables/TeamsTable";
+import StatsPlayers from "./stats/StatsPlayers";
 
 function App() {
   const determineVictor = () => {
@@ -60,6 +61,7 @@ function App() {
       </header>
       <main>
         <TeamTable />
+        <StatsPlayers />
       </main>
     </div>
   );
