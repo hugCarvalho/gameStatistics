@@ -1,31 +1,22 @@
 import React from "react";
 import "./TeamsTable.scss";
 import matchReport from "../stats/matchReports";
-import teamStats from "../stats/statsTeams";
-import numOfGamesEachTeam, {
-  biggestWin,
-  biggestDefeat,
-} from "./TeamsTableFunctions";
+// import numOfGamesEachTeam from "./TeamsTableFunctions";
 import {
+  numOfGamesEachTeam,
   numOfWinsEachTeam,
   numOfDefeatsEachTeam,
   percentagesWinsAndLosses,
   teamStreaksAndLast5Results,
-  teamResults,
+  biggestWin,
+  biggestDefeat,
 } from "./TeamsTableFunctions";
-
-// import playersStats from "../stats/statsPlayers";
-// import StatsTeam from "../stats/statsTeams";
 
 //TODOS PRIORiTIES
 //TODO: move fn to dedicated file && refactor them
 //TODO: make reusable component for each team
 //TODO: make graph
 //TODO: add styling
-
-// %
-
-// console.log(teamStreaksAndLast5Results(matchReport, "W", "Los Angeles"));
 
 function TeamTable() {
   return (
