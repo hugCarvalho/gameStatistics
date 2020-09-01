@@ -1,7 +1,19 @@
 import React from "react";
-import "./TeamTable.scss";
+import "./TeamsTable.scss";
 import matchReport from "../stats/matchReports";
 import teamStats from "../stats/statsTeams";
+import numOfGamesEachTeam, {
+  biggestWin,
+  biggestDefeat,
+} from "./TeamsTableFunctions";
+import {
+  numOfWinsEachTeam,
+  numOfDefeatsEachTeam,
+  percentagesWinsAndLosses,
+  teamStreaksAndLast5Results,
+  teamResults,
+} from "./TeamsTableFunctions";
+
 // import playersStats from "../stats/statsPlayers";
 // import StatsTeam from "../stats/statsTeams";
 
@@ -11,120 +23,9 @@ import teamStats from "../stats/statsTeams";
 //TODO: make graph
 //TODO: add styling
 
-export const numOfGamesEachTeam = (reports) => {
-  const obj = {};
-  const teams = reports.flatMap((item) => {
-    return [item.playerA.team, item.playerB.team];
-  });
-
-  for (let team of teams) {
-    if (!obj[team]) obj[team] = 1;
-    else obj[team] += 1;
-  }
-  return obj;
-};
-// numOfGamesEachTeam(matchReport);
-
-const numOfWinsEachTeam = (matchReport) => {
-  const teams = {};
-  matchReport.forEach((game) => {
-    const { playerA, playerB } = game;
-    if (teams[playerA.team] === undefined) teams[playerA.team] = 0;
-    if (teams[playerB.team] === undefined) teams[playerB.team] = 0;
-    if (playerA.won) teams[playerA.team] += 1;
-    if (playerB.won) teams[playerB.team] += 1;
-  });
-  return teams;
-};
-const numOfDefeatsEachTeam = (matchReport) => {
-  const teams = {};
-  matchReport.forEach((game) => {
-    const { playerA, playerB } = game;
-    if (teams[playerA.team] === undefined) teams[playerA.team] = 0;
-    if (teams[playerB.team] === undefined) teams[playerB.team] = 0;
-    if (playerA.won) teams[playerB.team] += 1;
-    if (playerB.won) teams[playerA.team] += 1;
-  });
-  return teams;
-};
-
 // %
-const percentagesWinsAndLosses = (matchReport, type) => {
-  const totalGamesEachTeam = numOfGamesEachTeam(matchReport);
-  const totalGamesWonByEachTeam = numOfWinsEachTeam(matchReport);
-  const teamWinsPercentage = {};
-  const teamDefeatsPercentage = {};
 
-  const teams = Object.keys(totalGamesEachTeam);
-  teams.forEach((team) => {
-    const total = totalGamesEachTeam[team];
-    const wins = totalGamesWonByEachTeam[team];
-    if (type === "w")
-      teamWinsPercentage[team] = Math.round((wins * 100) / total);
-    else
-      teamDefeatsPercentage[team] = Math.round(((total - wins) * 100) / total);
-  });
-
-  return type === "w" ? teamWinsPercentage : teamDefeatsPercentage;
-};
-
-//Streaks
-export const teamStreaksAndLast5Results = (matchReport, gameResult, team) => {
-  const gameResults = matchReport
-    .map((game) => {
-      const { playerA, playerB } = game;
-      console.log("playerA.team", playerA.team);
-      console.log("playerA.won", playerA.won);
-      console.log("team", team);
-      console.log("----------");
-      if (playerA.team === team && playerA.won) return "W";
-      else if (playerA.team === team && playerB.won) return "D";
-      else if (playerB.team === team && playerA.won) return "D";
-      else return "W";
-    })
-    .filter((item) => item);
-
-  let streak = 0;
-  for (let res of gameResults) {
-    if (res !== gameResults[0]) break;
-    if (res === gameResult) streak += 1;
-  }
-  console.log("GAME RESULTS:->", gameResults);
-  //A streak must be at least 2 to be considered a streak, a single res is not enough
-  return streak > 1 ? [streak - 1, gameResults] : ["none", gameResults];
-};
 // console.log(teamStreaksAndLast5Results(matchReport, "W", "Los Angeles"));
-
-const teamResults = (matchReport, team, type) => {
-  const res = matchReport.map((game) => {
-    const { team: teamA, score: scoreA } = game.playerA;
-    const { team: teamB, score: scoreB } = game.playerB;
-    // const { teamB, scoreB } = game.playerB;
-    return [
-      [teamA, scoreA],
-      [teamB, scoreB],
-    ]; //, teamB, scoreB];
-  });
-
-  const won = res.filter(
-    (item) =>
-      (item[0][0] === team && item[0][1] === 4) ||
-      (item[1][0] === team && item[1][1] === 4)
-  );
-  const lost = res.filter(
-    (item) =>
-      (item[0][0] === team && item[0][1] < 4) ||
-      (item[1][0] === team && item[1][1] < 4)
-  );
-  // const lost = res.filter((item) => item[0][0] === team && item[0][1] < 4);
-  const opponentMinScore = Math.min(
-    ...won.map((item) => typeof item === "number")
-  );
-  const teamMinScore = lost.flatMap((item, i) => [item[0][1], item[1][1]]);
-  const WTF = Math.min(...teamMinScore);
-  return type === "W" ? `4 - ${opponentMinScore}` : `${WTF} - 4`;
-};
-teamResults(matchReport, "Boston");
 
 function TeamTable() {
   return (
@@ -172,10 +73,10 @@ function TeamTable() {
             {teamStreaksAndLast5Results(matchReport, "D", "Boston")[0]}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "Boston", "W")}
+            {biggestWin(matchReport, "Boston", "W")}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "Boston", "D")}
+            {biggestDefeat(matchReport, "Boston", "D")}
           </div>
         </div>
 
@@ -207,10 +108,10 @@ function TeamTable() {
             {teamStreaksAndLast5Results(matchReport, "D", "San Francisco")[0]}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "San Francisco", "W")}
+            {biggestWin(matchReport, "San Francisco", "W")}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "San Francisco", "D")}
+            {biggestDefeat(matchReport, "San Francisco", "D")}
           </div>
         </div>
 
@@ -242,10 +143,10 @@ function TeamTable() {
             {teamStreaksAndLast5Results(matchReport, "D", "New York")[0]}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "New York", "W")}
+            {biggestWin(matchReport, "New York", "W")}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "New York", "D")}
+            {biggestDefeat(matchReport, "New York", "D")}
           </div>
         </div>
 
@@ -277,10 +178,10 @@ function TeamTable() {
             {teamStreaksAndLast5Results(matchReport, "D", "Los Angeles")[0]}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "Los Angeles", "W")}
+            {biggestWin(matchReport, "Los Angeles", "W")}
           </div>
           <div className="items item--6">
-            {teamResults(matchReport, "Los Angeles", "D")}
+            {biggestDefeat(matchReport, "Los Angeles", "D")}
           </div>
         </div>
       </section>
