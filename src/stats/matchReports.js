@@ -1,6 +1,6 @@
 const matchReport = [
   {
-    id: 2,
+    id: 1,
     date: "02-02-20",
     playerA: {
       name: "Hugo",
@@ -16,7 +16,7 @@ const matchReport = [
     },
   },
   {
-    id: 1,
+    id: 2,
     date: "21-02-20",
     playerA: {
       name: "Hugo",
@@ -28,11 +28,11 @@ const matchReport = [
       name: "Eddie",
       team: "San Francisco",
       won: false,
-      score: 0,
+      score: 1,
     },
   },
   {
-    id: 1,
+    id: 3,
     date: "21-02-20",
     playerA: {
       name: "Eddie",
