@@ -3,6 +3,9 @@ import "./StatsPlayer.scss";
 import matchReport from "./matchReports";
 import playerStats from "../stats/StatsPlayerObj";
 
+//TODO: put functions in separate file
+//TODO: refactor
+
 //put in teamsTable
 const teams = ["Boston", "New York", "San Franciso", "Los Angeles"];
 
@@ -16,7 +19,7 @@ export const numOfGamesPlayedByPlayer = (matchResults, name) => {
     else playerAppearances[player] += 1;
   }
   // console.log("playerAppearances", playerAppearances);
-  return playerAppearances[name.toLowerCase()];
+  return playerAppearances[name.toLowerCase()] || 0;
 };
 
 const numOfVictories = (matchReport, name) => {
@@ -92,13 +95,18 @@ const biggestWin = (matchReport, gameResultType, player) => {
       return game;
     }
   });
+  console.log("allVictories", allVictories);
   const opponentScores = allVictories.map((game) => {
     const { playerA, playerB } = game;
     if (!playerA.won) return playerA.score;
     else return playerB.score;
   });
   const biggestDif = Math.min(...opponentScores);
-  return !allVictories ? "---" : `4 - ${biggestDif}`;
+
+  if (!allVictories) console.log("NOOOOOOOOOOOOOOOOO");
+  if (allVictories) console.log("YEEEEEEEEEEEEEEES");
+
+  return allVictories.length === 0 ? "---" : `4 - ${biggestDif}`;
 };
 
 const biggestDefeat = (matchReport, gameResultType, player) => {
@@ -115,8 +123,46 @@ const biggestDefeat = (matchReport, gameResultType, player) => {
 
   const biggestDif = Math.min(...playerScores);
 
-  return !allDefeats ? "---" : `${biggestDif} - 4`;
+  return allDefeats.length === 0 ? "---" : `${biggestDif} - 4`;
 };
+
+const teamStatsPerPlayer = (matchReport, player) => {
+  const allGamesPlayer = matchReport.map((game) => {
+    if (game.playerA.name === player) return game.playerA;
+    if (game.playerB.name === player) return game.playerB;
+  });
+  let obj = {};
+  allGamesPlayer.forEach((data) => {
+    const { team, won } = data;
+    if (!obj[team]) obj[team] = { played: 0, won: 0, lost: 0 };
+    obj[team] = {
+      played: obj[team].played + 1,
+      won: won ? obj[team].won + 1 : obj[team].won,
+      lost: !won ? obj[team].lost + 1 : obj[team].lost,
+    };
+  });
+  console.log(obj);
+  return Object.entries(obj);
+};
+const teamStats = teamStatsPerPlayer(matchReport, "Hugo");
+
+// console.log(
+//   "x",
+//   x.map((item) => item)
+// );
+// const test = Object.keys(teamStatsPerPlayer(matchReport, "Hugo"));
+// console.log(test);
+// const gameWonWithTeam = () => (matchReport, player, team) {
+//   const allVictories = matchReport.filter((game) => {
+//     if (game.playerA.won && game.playerA.name === player) {
+//       return game;
+//     }
+//     if (game.playerB.won && game.playerB.name === player) {
+//       return game;
+//     }
+//   });
+//   const teamStatistics
+// }
 
 function StatsPlayers() {
   return (
@@ -143,16 +189,16 @@ function StatsPlayers() {
       </section>
 
       <section className="wrapper">
-        <div>Player 1</div>
-        <div className="player">Hugo</div>
+        <div>Hugo</div>
+        <div className="player">Total</div>
         <div className="player">{playerStats.hugo.games()}</div>
         <div className="player">{numOfVictories(matchReport, "Hugo")}</div>
         <div className="player">
           {numOfGamesPlayedByPlayer(matchReport, "Hugo") -
             numOfVictories(matchReport, "Hugo")}
         </div>
-        <div className="player">{calcWinningPerc(matchReport, "Hugo")}</div>
-        <div className="player">{calcDefeatsPerc(matchReport, "Hugo")}</div>
+        <div className="player">{calcWinningPerc(matchReport, "Hugo")}%</div>
+        <div className="player">{calcDefeatsPerc(matchReport, "Hugo")}%</div>
         <div className="player">{resultLast5Games(matchReport, "Hugo")}</div>
         <div className="player">
           {calcPlayerStreaks(resultLast5Games(matchReport, "Hugo"), "W")}
@@ -161,8 +207,29 @@ function StatsPlayers() {
           {calcPlayerStreaks(resultLast5Games(matchReport, "Hugo"), "D")}
         </div>
         <div className="player">{biggestWin(matchReport, "W", "Hugo")}</div>
-        <div className="player">{biggestDefeat(matchReport, "D", "Hugo")}</div>
+        <div className="player">
+          BD{biggestDefeat(matchReport, "D", "Hugo")}
+        </div>
+        {/* <div className="items item--6">
+          {teamStatsPerPlayer(matchReport, "Hugo")}
+        </div> */}
       </section>
+      {/* EXTENDED  */}
+      {teamStats.map((item, i) => {
+        return (
+          <section key={i}>
+            <div>a</div>
+            <div>{item[0]}</div>
+            <div>{item[1].played}</div>
+            <div>{item[1].won}</div>
+            <div>{item[1].lost}</div>
+            {/* <div>{item[1].won}</div>
+            <div>{item[1].lost}</div> */}
+
+            <div></div>
+          </section>
+        );
+      })}
     </div>
   );
 }

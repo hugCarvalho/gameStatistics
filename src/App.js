@@ -6,7 +6,8 @@ import TeamTable from "./tables/TeamsTable";
 import StatsPlayers from "./stats/StatsPlayers";
 
 function App() {
-  const determineVictor = () => {
+  const determineVictor = (matchReport = []) => {
+    if (!matchReport.length) return;
     const { playerA } = matchReport[0];
     const { playerB } = matchReport[0];
 
@@ -14,12 +15,12 @@ function App() {
       ? [playerA.team, playerA.score, playerB.score]
       : [playerB.team, playerB.score, playerA.score];
   };
-  const victor = determineVictor();
+  const victor = determineVictor(matchReport);
   // console.log(victor);
 
   //Destructured
-  const { playerA } = matchReport[0];
-  const { playerB } = matchReport[0];
+  // const { playerA } = matchReport[0];
+  // const { playerB } = matchReport[0];
   //const { totalGames } = statistics;
 
   const arrOfPlayers = (item) => {
@@ -38,15 +39,13 @@ function App() {
           <h1>Baseball Highlights Statistics</h1>
         </ul>
 
-        <time>{matchReport[0].date} </time>
+        {/* <time>{matchReport[0].date} </time> */}
         <time dateTime="2020-08-30"></time>
-        <p>
+        {/* <p>
           The last match was between {playerA.team} coached by {playerA.name}{" "}
           and {playerB.team} coached by {playerB.name}.
-        </p>
-        <p>
-          {victor[0]} won by {victor[1]} to {victor[2]}
-        </p>
+        </p> */}
+        <p>{/* {victor[0]} won by {victor[1]} to {victor[2]} */}</p>
         <ul>
           {/* <li>A total of {totalGames} games have been played.</li> */}
           <li>Number of players: {arrOfPlayers(matchReport).length} </li>

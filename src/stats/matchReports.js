@@ -3,13 +3,13 @@ const matchReport = [
     id: 1,
     date: "02-02-20",
     playerA: {
-      name: "Hugo",
+      name: "Hugos",
       team: "Boston",
       won: false,
       score: 3,
     },
     playerB: {
-      name: "Eddie",
+      name: "Hugo",
       team: "New York",
       won: true,
       score: 4,
@@ -31,22 +31,22 @@ const matchReport = [
       score: 1,
     },
   },
-  {
-    id: 3,
-    date: "21-02-20",
-    playerA: {
-      name: "Eddie",
-      team: "Los Angeles",
-      won: false,
-      score: 1,
-    },
-    playerB: {
-      name: "Hugo",
-      team: "Boston",
-      won: true,
-      score: 4,
-    },
-  },
+  // {
+  //   id: 3,
+  //   date: "21-02-20",
+  //   playerA: {
+  //     name: "Eddie",
+  //     team: "Los Angeles",
+  //     won: false,
+  //     score: 1,
+  //   },
+  //   playerB: {
+  //     name: "Hugo",
+  //     team: "Boston",
+  //     won: true,
+  //     score: 4,
+  //   },
+  // },
   // {
   //   id: 2,
   //   date: "02-02-20",
