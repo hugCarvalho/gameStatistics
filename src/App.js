@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.scss";
-import matchReport from "./stats/matchReports";
+import matchReport from "./data/matchReports";
 // import teamStats from "./stats/statsTeams";
-import TeamTable from "./tables/TeamsTable";
-import StatsPlayers from "./stats/StatsPlayers";
+import TeamTable from "./statistics/TeamStats/TeamsTable";
+import StatsPlayers from "./statistics/PlayerStats/StatsPlayers";
 
 function App() {
   const determineVictor = (matchReport = []) => {

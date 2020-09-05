@@ -1,5 +1,5 @@
 //GAMES EACH TEAM
-export const numOfGamesEachTeam = (matchResults) => {
+export const numOfGamesEachTeam = (matchResults, teamName) => {
   const teamAppearances = {};
 
   const teams = matchResults.flatMap((res) => {
@@ -11,11 +11,11 @@ export const numOfGamesEachTeam = (matchResults) => {
     else teamAppearances[team] += 1;
   }
 
-  return teamAppearances;
+  return teamAppearances[teamName] || 0;
 };
 
 //WINS AND DEFEATS EACH TEAM
-export const numOfWinsEachTeam = (matchReport) => {
+export const numOfWinsEachTeam = (matchReport, teamName) => {
   const teamsVictories = {};
 
   matchReport.forEach((game) => {
@@ -26,10 +26,10 @@ export const numOfWinsEachTeam = (matchReport) => {
     if (playerB.won) teamsVictories[playerB.team] += 1;
   });
 
-  return teamsVictories;
+  return teamsVictories[teamName] || 0;
 };
 
-export const numOfDefeatsEachTeam = (matchReport) => {
+export const numOfDefeatsEachTeam = (matchReport, teamName) => {
   const teamsDefeats = {};
 
   matchReport.forEach((game) => {
@@ -40,32 +40,20 @@ export const numOfDefeatsEachTeam = (matchReport) => {
     if (playerB.won) teamsDefeats[playerA.team] += 1;
   });
 
-  return teamsDefeats;
+  return teamsDefeats[teamName] || 0;
 };
 
 //% WINS AND LOSSES
-export const percentagesWinsAndLosses = (matchReport, matchResult) => {
-  const totalGamesEachTeam = numOfGamesEachTeam(matchReport);
-  const totalGamesWonByEachTeam = numOfWinsEachTeam(matchReport);
-  const teamWinsPercentage = {};
-  const teamDefeatsPercentage = {};
-  const teams = Object.keys(totalGamesEachTeam);
+export const percentagesWinsAndLosses = (matchReport, matchResult, name) => {
+  const totalGames = numOfGamesEachTeam(matchReport, name);
+  const totalGamesWon = numOfWinsEachTeam(matchReport, name);
+  const totalGamesLost = numOfDefeatsEachTeam(matchReport, name);
 
-  teams.forEach((team) => {
-    const totalGames = totalGamesEachTeam[team];
-    const totalWins = totalGamesWonByEachTeam[team];
-    if (matchResult.toLowerCase() === "w") {
-      teamWinsPercentage[team] = Math.round((totalWins * 100) / totalGames);
-    } else {
-      teamDefeatsPercentage[team] = Math.round(
-        ((totalGames - totalWins) * 100) / totalGames
-      );
-    }
-  });
-
-  return matchResult.toLowerCase() === "w"
-    ? teamWinsPercentage
-    : teamDefeatsPercentage;
+  if (matchResult.toLowerCase() === "w") {
+    return totalGamesWon ? Math.round((totalGamesWon * 100) / totalGames) : 0;
+  } else {
+    return totalGamesLost ? Math.round((totalGamesLost * 100) / totalGames) : 0;
+  }
 };
 
 //Streaks
@@ -82,6 +70,8 @@ export const teamStreaksAndLast5Results = (matchReport, matchResult, team) => {
       else return null;
     })
     .filter((item) => item);
+
+  if (gameResults.length === 0) return "--";
 
   for (let res of gameResults) {
     //A streak starts counting after 2 consecutive wins
@@ -117,7 +107,7 @@ export const biggestWin = (matchReport, team, matchResult) => {
   ]);
   const minTeamScore = Math.min(...teamScores);
 
-  if (teamVictoriesMatches.length < 1) return "---";
+  if (teamVictoriesMatches.length === 0) return "-";
 
   //don't forget only first value matters here
   return matchResult === "W" ? `4 - ${minTeamScore}` : `${minTeamScore} - 4`;
@@ -143,8 +133,7 @@ export const biggestDefeat = (matchReport, team, matchResult) => {
   ]);
   const minTeamScore = Math.min(...teamScores);
 
-  if (matchesWhereTeamLost.length < 1) return "---";
-  //don't forget only last value matters here
+  if (matchesWhereTeamLost.length === 0) return "-";
   return matchResult === "W" ? `4 - ${minTeamScore}` : `${minTeamScore} - 4`;
 };
 

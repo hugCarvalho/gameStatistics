@@ -1,13 +1,49 @@
 import React from "react";
 import "./StatsPlayer.scss";
-import matchReport from "./matchReports";
-import playerStats from "../stats/StatsPlayerObj";
+import matchReport from "../../data/matchReports";
+import playerStats from "./StatsPlayerObj";
+import { Bar } from "react-chartjs-2";
 
 //TODO: put functions in separate file
 //TODO: refactor
 
 //put in teamsTable
 const teams = ["Boston", "New York", "San Franciso", "Los Angeles"];
+
+const data = {
+  labels: ["Hugo", "Eddie"],
+
+  datasets: [
+    {
+      order: 0,
+      barPercentage: 0.5,
+      minBarLength: 50,
+      label: "WINS",
+      data: [2, 4, 9],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 5,
+    },
+    {
+      label: "DEFEATS",
+      data: [1, 3, 6],
+    },
+  ], //array of objects, each object corresponds to a line in the chart
+};
 
 export const numOfGamesPlayedByPlayer = (matchResults, name) => {
   const playerAppearances = {};
@@ -225,11 +261,10 @@ function StatsPlayers() {
             <div>{item[1].lost}</div>
             {/* <div>{item[1].won}</div>
             <div>{item[1].lost}</div> */}
-
-            <div></div>
           </section>
         );
       })}
+      {/* {<Bar data={data} />} */}
     </div>
   );
 }
