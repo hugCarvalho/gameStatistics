@@ -1,4 +1,4 @@
-import { numOfGamesPlayedByPlayer } from "./StatsPlayers";
+import { numOfGamesPlayedByPlayer } from "./PlayersStats";
 import matchReport from "../../data/matchReports";
 
 const playersStats = {

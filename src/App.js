@@ -3,7 +3,7 @@ import "./App.scss";
 import matchReport from "./data/matchReports";
 // import teamStats from "./stats/statsTeams";
 import TeamTable from "./statistics/TeamStats/TeamsTable";
-import StatsPlayers from "./statistics/PlayerStats/StatsPlayers";
+import PlayersStats from "./statistics/PlayerStats/PlayersStats";
 
 function App() {
   const determineVictor = (matchReport = []) => {
@@ -60,7 +60,7 @@ function App() {
       </header>
       <main>
         <TeamTable />
-        <StatsPlayers />
+        <PlayersStats />
       </main>
     </div>
   );
