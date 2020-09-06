@@ -1,6 +1,8 @@
 import React from "react";
 import "./PlayersStats.scss";
 import PlayerStats from "../../reusableComp/PlayerStats";
+import PlayerCharts, { PlayerTeamsChart } from "./PlayersCharts";
+import PlayerTeamsPieChart from "./charts/PlayerTeamsPieChart";
 
 function PlayersStats() {
   return (
@@ -14,7 +16,7 @@ function PlayersStats() {
           <div className="items item--1">Team</div>
           <div className="items item--2">Games</div>
           <div className="items item--3">Wins</div>
-          <div className="items item--4">Defeat</div>
+          <div className="items item--4">Defeats</div>
           <div className="items item--5">Wins %</div>
           <div className="items item--6">Defeats %</div>
           <div className="items item--6">Last 5 games</div>
@@ -29,7 +31,11 @@ function PlayersStats() {
           <PlayerStats playerName="Eddie" />
         </section>
       </div>
-      <section>CHARTS</section>
+      <section>
+        CHARTS
+        <PlayerCharts />
+        <PlayerTeamsPieChart />
+      </section>
     </div>
   );
 }

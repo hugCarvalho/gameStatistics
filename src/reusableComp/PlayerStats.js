@@ -10,10 +10,11 @@ import {
   calcPlayerStreaks,
   biggestWin,
   biggestDefeat,
-  teamStats,
+  teamStatsPerPlayer,
 } from "../statistics/PlayerStats/PlayersStatsFn";
 
 function PlayerStats({ playerName }) {
+  const team = teamStatsPerPlayer(matchReport, playerName);
   return (
     <div className="PlayerStats">
       <div className="player-name">{playerName}</div>
@@ -23,19 +24,13 @@ function PlayerStats({ playerName }) {
           <div className="player">
             {numOfGamesPlayedByPlayer(matchReport, playerName)}
           </div>
-          <div className="player">
-            {numOfVictories(matchReport, playerName)}
-          </div>
+          <div className="player">{numOfVictories(matchReport, playerName)}</div>
           <div className="player">
             {numOfGamesPlayedByPlayer(matchReport, playerName) -
               numOfVictories(matchReport, playerName)}
           </div>
-          <div className="player">
-            {calcWinningPerc(matchReport, playerName)}%
-          </div>
-          <div className="player">
-            {calcDefeatsPerc(matchReport, playerName)}%
-          </div>
+          <div className="player">{calcWinningPerc(matchReport, playerName)}%</div>
+          <div className="player">{calcDefeatsPerc(matchReport, playerName)}%</div>
           <div className="player">
             {resultLast5Games(matchReport, playerName).length === 0
               ? "-"
@@ -47,18 +42,14 @@ function PlayerStats({ playerName }) {
           <div className="player">
             {calcPlayerStreaks(resultLast5Games(matchReport, playerName), "D")}
           </div>
-          <div className="player">
-            {biggestWin(matchReport, "W", playerName)}
-          </div>
-          <div className="player">
-            {biggestDefeat(matchReport, "D", playerName)}
-          </div>
+          <div className="player">{biggestWin(matchReport, "W", playerName)}</div>
+          <div className="player">{biggestDefeat(matchReport, "D", playerName)}</div>
           {/* <div className="items item--6">
           {teamStatsPerPlayer(matchReport, playerName)}
         </div> */}
           {/* EXTENDED  */}
         </section>
-        {teamStats.map((item, i) => {
+        {team.map((item, i) => {
           return (
             <section key={i}>
               <div>{item[0]}</div>

@@ -36,8 +36,7 @@ export const calcDefeatsPerc = (matchReport, name) => {
   const totalGames = numOfGamesPlayedByPlayer(matchReport, name)
   const totalVictories = numOfVictories(matchReport, name)
   const totalDefeats = totalGames - totalVictories
- return  -
- !totalDefeats? 0 : 100 - calcWinningPerc(matchReport, name);
+ return !totalDefeats? 0 : 100 - calcWinningPerc(matchReport, name);
 }
 
 // const biggestWin = (matchReport, name) => {
@@ -123,12 +122,17 @@ export const biggestDefeat = (matchReport, gameResultType, player) => {
   return allDefeats.length === 0 ? "-" : `${biggestDif} - 4`;
 };
 
-const teamStatsPerPlayer = (matchReport, player) => {
+export const teamStatsPerPlayer = (matchReport, player) => {
   const allGamesPlayer = matchReport.map((game) => {
     if (game.playerA.name === player) return game.playerA;
     if (game.playerB.name === player) return game.playerB;
   });
-  let obj = {};
+  let obj = {
+    Boston: { played: 0, won: 0, lost: 0 },
+    "Los Angeles": { played: 0, won: 0, lost: 0 },
+    "New York": { played: 0, won: 0, lost: 0 },
+    "San Francisco": { played: 0, won: 0, lost: 0 },
+  };
   allGamesPlayer.forEach((data) => {
     const { team, won } = data;
     if (!obj[team]) obj[team] = { played: 0, won: 0, lost: 0 };
@@ -141,7 +145,7 @@ const teamStatsPerPlayer = (matchReport, player) => {
   // console.log(obj);
   return Object.entries(obj);
 };
-export const teamStats = teamStatsPerPlayer(matchReport, "Hugo");
+// export const teamStats = teamStatsPerPlayer(matchReport, "Hugo");
 
 // console.log(
 //   "x",

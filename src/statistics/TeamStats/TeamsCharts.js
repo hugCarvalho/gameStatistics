@@ -8,19 +8,15 @@ import matchReport from "../../data/matchReports";
 const chartsDataObj = {
   winsPercentage: {
     Boston: () => percentagesWinsAndLosses(matchReport, "w", "Boston"),
-    "Los Angeles": () =>
-      percentagesWinsAndLosses(matchReport, "w", "Los Angeles"),
+    "Los Angeles": () => percentagesWinsAndLosses(matchReport, "w", "Los Angeles"),
     "New York": () => percentagesWinsAndLosses(matchReport, "w", "New York"),
-    "San Francisco": () =>
-      percentagesWinsAndLosses(matchReport, "w", "San Francisco"),
+    "San Francisco": () => percentagesWinsAndLosses(matchReport, "w", "San Francisco"),
   },
   defeatsPercentage: {
     Boston: () => percentagesWinsAndLosses(matchReport, "L", "Boston"),
-    "Los Angeles": () =>
-      percentagesWinsAndLosses(matchReport, "L", "Los Angeles"),
+    "Los Angeles": () => percentagesWinsAndLosses(matchReport, "L", "Los Angeles"),
     "New York": () => percentagesWinsAndLosses(matchReport, "L", "New York"),
-    "San Francisco": () =>
-      percentagesWinsAndLosses(matchReport, "L", "San Francisco"),
+    "San Francisco": () => percentagesWinsAndLosses(matchReport, "L", "San Francisco"),
   },
 };
 
