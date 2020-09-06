@@ -1,4 +1,14 @@
-.player-stats {
+.PlayersStats {
   background-color: cornflowerblue;
-  display: flex;
+  // display: flex;
+  .wrapper__table-legend--player-data {
+    display: flex;
+  }
+  .wrapper__sections {
+    display: flex;
+  }
+
+  // .player-name {
+
+  // }
 }
