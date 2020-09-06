@@ -29,4 +29,12 @@
     padding-top: 4px;
     color: whitesmoke;
   }
+
+  .container__charts {
+    position: relative;
+    // background-color: yellowgreen;
+    width: 40%;
+    min-width: 600px;
+    margin: 30px auto;
+  }
 }

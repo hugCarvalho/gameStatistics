@@ -24,6 +24,7 @@ const data = {
   datasets: [
     {
       label: "Hugo",
+      barPercentage: 0.5,
       data: [playerChartsObj.Hugo.wins(), playerChartsObj.Hugo.defeats()],
       backgroundColor: [
         "rgba(75, 192, 192, .5)",
@@ -38,7 +39,6 @@ const data = {
         "rgba(75, 192, 192, 1)",
       ],
       borderWidth: 1,
-      barPercentage: 0.7,
     },
     {
       label: "Eddie",
@@ -56,12 +56,18 @@ const data = {
         "rgba(255, 99, 132, 1)",
       ],
       borderWidth: 1,
-      barPercentage: 0.7,
+      barPercentage: 0.5,
     },
   ],
 };
 
 const options = {
+  title: {
+    display: true,
+    text: "Total number of victories and defeats each player",
+    fontSize: 16,
+  },
+
   scales: {
     yAxes: [
       {

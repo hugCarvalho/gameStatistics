@@ -10,7 +10,7 @@ function PlayersStats() {
       <h2>Player Statistics</h2>
       <div className="wrapper__table-legend--player-data">
         <section className="categories">
-          <div className="item--1 coach">Coach</div>
+          <div className="items coach">Coach</div>
           <div className="items item--1">Team</div>
           <div className="items item--2">Games</div>
           <div className="items item--3">Wins</div>
@@ -29,8 +29,7 @@ function PlayersStats() {
           <PlayerStats playerName="Eddie" />
         </section>
       </div>
-      <section>
-        CHARTS
+      <section className="container__charts">
         <PlayerWinLostChart />
         <PlayerTeamsPieChart />
       </section>
