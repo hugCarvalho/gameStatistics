@@ -1,10 +1,10 @@
 import React from "react";
 import "./TeamsTable.scss";
 import matchReport from "../../data/matchReports";
-import statsGame, { gameStats } from "../GameStats/statsGame";
+import statsGame, { gameInfo } from "../GameInfo/GameInfo";
 
 import TeamStats from "../../reusableComp/TeamStats";
-import TeamChart from "./TeamChart";
+import TeamsChartWinsAndLossesPercentage from "./TeamChart";
 
 //TODOS PRIORiTIES
 //TODO: move fn to dedicated file && refactor them
@@ -30,10 +30,10 @@ function TeamTable() {
           <div className="items item--6">Biggest Defeat</div>
         </div>
 
-        {gameStats.teams.map((name, i) => {
+        {gameInfo.teams.map((name, i) => {
           return <TeamStats name={name} key={i} />;
         })}
-        <TeamChart />
+        <TeamsChartWinsAndLossesPercentage />
       </section>
     </div>
   );
