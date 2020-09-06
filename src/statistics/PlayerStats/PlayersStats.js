@@ -24,10 +24,12 @@ function PlayersStats() {
           <div className="items item--6">Biggest Defeat</div>
         </section>
 
-        <section className="wrapper">
-          <PlayerStats />
+        <section className="wrapper__player-stats">
+          <PlayerStats playerName="Hugo" />
+          <PlayerStats playerName="Eddie" />
         </section>
       </div>
+      <section>CHARTS</section>
     </div>
   );
 }

@@ -25,13 +25,20 @@ export const numOfVictories = (matchReport, name) => {
 };
 
 export const calcWinningPerc = (matchReport, name) => {
-  return Math.round(
+  const res = Math.round(
     (numOfVictories(matchReport, name) * 100) /
       numOfGamesPlayedByPlayer(matchReport, name)
   );
+  return isNaN(res) ? 0 : res;
 };
 //prettier-ignore
-export const calcDefeatsPerc = (matchReport, name) => 100 - calcWinningPerc(matchReport, name);
+export const calcDefeatsPerc = (matchReport, name) => {
+  const totalGames = numOfGamesPlayedByPlayer(matchReport, name)
+  const totalVictories = numOfVictories(matchReport, name)
+  const totalDefeats = totalGames - totalVictories
+ return  -
+ !totalDefeats? 0 : 100 - calcWinningPerc(matchReport, name);
+}
 
 // const biggestWin = (matchReport, name) => {
 //   const x = matchReport.filter((match) => {
@@ -63,6 +70,7 @@ export const resultLast5Games = (matchReport, name) => {
     }
     return matchResult;
   });
+  // console.log(object)
   return matches;
 };
 // console.log("resultLast5Matches", resultLast5Games(matchReport, "Hugo"));
@@ -87,7 +95,7 @@ export const biggestWin = (matchReport, gameResultType, player) => {
       return game;
     }
   });
-  console.log("allVictories", allVictories);
+  // console.log("allVictories", allVictories);
   const opponentScores = allVictories.map((game) => {
     const { playerA, playerB } = game;
     if (!playerA.won) return playerA.score;
@@ -95,10 +103,7 @@ export const biggestWin = (matchReport, gameResultType, player) => {
   });
   const biggestDif = Math.min(...opponentScores);
 
-  if (!allVictories) console.log("NOOOOOOOOOOOOOOOOO");
-  if (allVictories) console.log("YEEEEEEEEEEEEEEES");
-
-  return allVictories.length === 0 ? "---" : `4 - ${biggestDif}`;
+  return allVictories.length === 0 ? "-" : `4 - ${biggestDif}`;
 };
 
 export const biggestDefeat = (matchReport, gameResultType, player) => {
@@ -115,7 +120,7 @@ export const biggestDefeat = (matchReport, gameResultType, player) => {
 
   const biggestDif = Math.min(...playerScores);
 
-  return allDefeats.length === 0 ? "---" : `${biggestDif} - 4`;
+  return allDefeats.length === 0 ? "-" : `${biggestDif} - 4`;
 };
 
 const teamStatsPerPlayer = (matchReport, player) => {
@@ -133,7 +138,7 @@ const teamStatsPerPlayer = (matchReport, player) => {
       lost: !won ? obj[team].lost + 1 : obj[team].lost,
     };
   });
-  console.log(obj);
+  // console.log(obj);
   return Object.entries(obj);
 };
 export const teamStats = teamStatsPerPlayer(matchReport, "Hugo");
