@@ -31,6 +31,8 @@ function PlayersStats() {
       </div>
       <section className="container__charts">
         <PlayerWinLostChart />
+      </section>
+      <section>
         <PlayerTeamsPieChart />
       </section>
     </div>

@@ -1,0 +1,28 @@
+.PlayerTeamsPieChart {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+
+  .wrapper__won {
+    // background-color: rgba(237, 239, 241, 0.212);
+    // border: 1px solid gray;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    width: 50%;
+    min-width: 320px;
+  }
+  .wrapper__lost {
+    // border: 1px solid gray;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    min-width: 320px;
+    width: 50%;
+  }
+  .top {
+    background-color: limegreen;
+    padding-bottom: 400px;
+  }
+}
