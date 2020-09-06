@@ -19,7 +19,7 @@ function PlayerStats({ playerName }) {
     <div className="PlayerStats">
       <div className="player-name">{playerName}</div>
       <div className="wrapper__sections">
-        <section>
+        <section className="player-stats">
           <div className="hidden">Total</div>
           <div className="player">
             {numOfGamesPlayedByPlayer(matchReport, playerName)}
@@ -44,24 +44,18 @@ function PlayerStats({ playerName }) {
           </div>
           <div className="player">{biggestWin(matchReport, "W", playerName)}</div>
           <div className="player">{biggestDefeat(matchReport, "D", playerName)}</div>
-          {/* <div className="items item--6">
-          {teamStatsPerPlayer(matchReport, playerName)}
-        </div> */}
           {/* EXTENDED  */}
         </section>
         {team.map((item, i) => {
           return (
-            <section key={i}>
+            <section key={i} className="teams">
               <div>{item[0]}</div>
               <div>{item[1].played}</div>
               <div>{item[1].won}</div>
               <div>{item[1].lost}</div>
-              {/* <div>{item[1].won}</div>
-              <div>{item[1].lost}</div> */}
             </section>
           );
         })}
-        {/* {<Bar data={data} />} */}
       </div>
     </div>
   );

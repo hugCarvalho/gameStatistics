@@ -1,7 +1,7 @@
 import React from "react";
 import "./PlayersStats.scss";
 import PlayerStats from "../../reusableComp/PlayerStats";
-import PlayerCharts, { PlayerTeamsChart } from "./PlayersCharts";
+import PlayerWinLostChart from "./charts/PlayerWinLostChart";
 import PlayerTeamsPieChart from "./charts/PlayerTeamsPieChart";
 
 function PlayersStats() {
@@ -9,10 +9,8 @@ function PlayersStats() {
     <div className="PlayersStats">
       <h2>Player Statistics</h2>
       <div className="wrapper__table-legend--player-data">
-        <section>
-          <div className="items item--1" style={{ visibility: "hidden" }}>
-            Coaches{" "}
-          </div>
+        <section className="categories">
+          <div className="item--1 coach">Coach</div>
           <div className="items item--1">Team</div>
           <div className="items item--2">Games</div>
           <div className="items item--3">Wins</div>
@@ -22,7 +20,7 @@ function PlayersStats() {
           <div className="items item--6">Last 5 games</div>
           <div className="items item--6">W streak</div>
           <div className="items item--6">L streak</div>
-          <div className="items item--6">Biggest win</div>
+          <div className="items item--6">Biggest Win</div>
           <div className="items item--6">Biggest Defeat</div>
         </section>
 
@@ -33,7 +31,7 @@ function PlayersStats() {
       </div>
       <section>
         CHARTS
-        <PlayerCharts />
+        <PlayerWinLostChart />
         <PlayerTeamsPieChart />
       </section>
     </div>

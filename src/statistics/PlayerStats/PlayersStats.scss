@@ -1,16 +1,32 @@
 .PlayersStats {
-  // background-color: cornflowerblue;
-  // display: flex;
+  // background-color: rgb(48, 50, 53); //use this one if dark theme
+  padding: 4px;
+  line-height: 1.6rem;
   .wrapper__table-legend--player-data {
+    // background-color: yellow;
     display: flex;
+    justify-content: center;
   }
-  .wrapper__sections {
-    display: flex;
-  }
-  .wrapper__player-stats {
-    display: flex;
-  }
-  // .player-name {
 
-  // }
+  .wrapper__player-stats {
+    // background-color: violet;
+    display: flex;
+  }
+
+  .categories {
+    background-color: darkseagreen;
+    // padding: 3px 0 ;
+    margin-right: 2px;
+    border-radius: 4px;
+    border: 1px solid gray;
+  }
+
+  .items {
+    padding: 0 3px;
+  }
+  .coach {
+    background-color: rgb(65, 61, 62);
+    padding-top: 4px;
+    color: whitesmoke;
+  }
 }
