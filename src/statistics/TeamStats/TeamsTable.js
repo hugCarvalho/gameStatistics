@@ -1,10 +1,9 @@
 import React from "react";
 import "./TeamsTable.scss";
-import matchReport from "../../data/matchReports";
-import statsGame, { gameInfo } from "../GameInfo/GameInfo";
+import { gameInfo } from "../GameInfo/GameInfo";
 
 import TeamStats from "../../reusableComp/TeamStats";
-import TeamsChartWinsAndLossesPercentage from "./TeamChart";
+import TeamsChartWinsAndLossesPercentage from "./TeamsCharts";
 
 //TODOS PRIORiTIES
 //TODO: move fn to dedicated file && refactor them

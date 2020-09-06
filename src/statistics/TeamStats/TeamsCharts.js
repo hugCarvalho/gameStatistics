@@ -1,13 +1,8 @@
 import React from "react";
-import "./TeamChart.scss";
+import "./TeamsCharts.scss";
 import { Bar } from "react-chartjs-2";
-// import teams from "../../data/teams";
 import gameInfo from "../GameInfo/GameInfo";
-import {
-  percentagesWinsAndLosses,
-  // numOfWinsEachTeam,
-  // numOfGamesEachTeam,
-} from "../TeamStats/teamsTableFn";
+import { percentagesWinsAndLosses } from "./teamsTableFn";
 import matchReport from "../../data/matchReports";
 
 const chartsDataObj = {
@@ -94,7 +89,7 @@ const data = {
 
 function TeamsChartWinsAndLossesPercentage() {
   return (
-    <div className="TeamChart">
+    <div className="TeamsChartWinsAndLossesPercentage">
       <Bar data={data} />
     </div>
   );
