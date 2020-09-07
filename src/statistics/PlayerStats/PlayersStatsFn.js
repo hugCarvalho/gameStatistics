@@ -14,6 +14,7 @@ export const numOfGamesPlayedByPlayer = (matchResults, name) => {
   return playerAppearances[name.toLowerCase()] || 0;
 };
 
+//Victories
 export const numOfVictories = (matchReport, name) => {
   return matchReport.filter((match) => {
     const { playerA, playerB } = match;
@@ -24,6 +25,7 @@ export const numOfVictories = (matchReport, name) => {
   }).length;
 };
 
+//Percentages
 export const calcWinningPerc = (matchReport, name) => {
   const res = Math.round(
     (numOfVictories(matchReport, name) * 100) /
@@ -31,13 +33,13 @@ export const calcWinningPerc = (matchReport, name) => {
   );
   return isNaN(res) ? 0 : res;
 };
-//prettier-ignore
+
 export const calcDefeatsPerc = (matchReport, name) => {
-  const totalGames = numOfGamesPlayedByPlayer(matchReport, name)
-  const totalVictories = numOfVictories(matchReport, name)
-  const totalDefeats = totalGames - totalVictories
- return !totalDefeats? 0 : 100 - calcWinningPerc(matchReport, name);
-}
+  const totalGames = numOfGamesPlayedByPlayer(matchReport, name);
+  const totalVictories = numOfVictories(matchReport, name);
+  const totalDefeats = totalGames - totalVictories;
+  return !totalDefeats ? 0 : 100 - calcWinningPerc(matchReport, name);
+};
 
 // const biggestWin = (matchReport, name) => {
 //   const x = matchReport.filter((match) => {
@@ -56,21 +58,23 @@ export const calcDefeatsPerc = (matchReport, name) => {
 //   return `4 - `;
 // };
 
+//Last 5 results
 export const resultLast5Games = (matchReport, name) => {
-  const matches = matchReport.flatMap((item) => {
+  const matchesResults = matchReport.flatMap((match) => {
     const matchResult = [];
-    if (item.playerA.name.toLowerCase() === name.toLowerCase()) {
-      if (item.playerA.won) matchResult.push("W");
+    if (match.playerA.name.toLowerCase() === name.toLowerCase()) {
+      if (match.playerA.won) matchResult.push("W");
       else matchResult.push("D");
     }
-    if (item.playerB.name.toLowerCase() === name.toLowerCase()) {
-      if (item.playerB.won) matchResult.push("W");
+    if (match.playerB.name.toLowerCase() === name.toLowerCase()) {
+      if (match.playerB.won) matchResult.push("W");
       else matchResult.push("D");
     }
-    return matchResult;
+    return matchResult.length > 5 ? matchResult.slice(0, 5) : matchResult;
   });
   // console.log(object)
-  return matches;
+  console.log(matchesResults);
+  return matchesResults.length > 5 ? matchesResults.slice(0, 5) : matchesResults;
 };
 // console.log("resultLast5Matches", resultLast5Games(matchReport, "Hugo"));
 

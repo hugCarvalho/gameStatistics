@@ -7,7 +7,7 @@ import matchReport from "../../../data/matchReports";
 //TODO: improve dynamic content
 const teamStatsHugo = teamStatsPerPlayer(matchReport, "Hugo");
 const teamStatsEddie = teamStatsPerPlayer(matchReport, "Eddie");
-console.log("teamStatsHugo", teamStatsHugo);
+
 const dataWon = {
   labels: ["Boston", "Los Angeles", "New York", "San Francisco"],
 

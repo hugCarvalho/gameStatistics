@@ -9,16 +9,17 @@
   }
 
   .wrapper__player-stats {
-    // background-color: violet;
+    //background-color: violet;
     display: flex;
   }
 
-  .categories {
+  .table-legend {
     background-color: darkseagreen;
     // padding: 3px 0 ;
     margin-right: 2px;
     border-radius: 4px;
     border: 1px solid gray;
+    min-width: 116px;
   }
 
   .items {

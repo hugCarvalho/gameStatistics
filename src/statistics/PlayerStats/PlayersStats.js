@@ -9,7 +9,7 @@ function PlayersStats() {
     <div className="PlayersStats">
       <h2>Player Statistics</h2>
       <div className="wrapper__table-legend--player-data">
-        <section className="categories">
+        <section className="table-legend">
           <div className="items coach">Coach</div>
           <div className="items item--1">Team</div>
           <div className="items item--2">Games</div>
