@@ -41,23 +41,6 @@ export const calcDefeatsPerc = (matchReport, name) => {
   return !totalDefeats ? 0 : 100 - calcWinningPerc(matchReport, name);
 };
 
-// const biggestWin = (matchReport, name) => {
-//   const x = matchReport.filter((match) => {
-//     const { playerA, playerB } = match;
-//     return (
-//       (playerA.won && playerA.name.toLowerCase() === name.toLowerCase()) ||
-//       (playerB.won && playerB.name.toLowerCase() === name.toLowerCase())
-//     );
-//   });
-//   console.log("x:!!!!", x);
-//   const opDefeats = x.map((item) => {
-//     console.log(item);
-//     return item.playerA.score || item.playerB.score;
-//   });
-//   console.log(opDefeats);
-//   return `4 - `;
-// };
-
 //Last 5 results
 export const resultLast5Games = (matchReport, name) => {
   const matchesResults = matchReport.flatMap((match) => {
@@ -72,23 +55,25 @@ export const resultLast5Games = (matchReport, name) => {
     }
     return matchResult.length > 5 ? matchResult.slice(0, 5) : matchResult;
   });
-  // console.log(object)
   console.log(matchesResults);
-  return matchesResults.length > 5 ? matchesResults.slice(0, 5) : matchesResults;
+  return matchesResults.length > 5
+    ? matchesResults.reverse().slice(0, 5)
+    : matchesResults.reverse();
 };
-// console.log("resultLast5Matches", resultLast5Games(matchReport, "Hugo"));
 
+//Streaks
 export const calcPlayerStreaks = (resultLast5Games, gameResultType) => {
-  const lastResults = resultLast5Games.reverse();
+  const lastResults = resultLast5Games;
   let playerStreak = 0;
   for (let res of lastResults) {
     if (res !== gameResultType.toUpperCase()) break;
     else playerStreak += 1;
   }
+  console.log(lastResults);
   return playerStreak > 1 ? playerStreak : 0;
 };
-// console.log(winningStreak(resultLast5Games(matchReport, "Hugo")));
 
+//Biggest Win
 export const biggestWin = (matchReport, gameResultType, player) => {
   const allVictories = matchReport.filter((game) => {
     if (game.playerA.won && game.playerA.name === player) {
@@ -109,6 +94,7 @@ export const biggestWin = (matchReport, gameResultType, player) => {
   return allVictories.length === 0 ? "-" : `4 - ${biggestDif}`;
 };
 
+//Biggest Defeat
 export const biggestDefeat = (matchReport, gameResultType, player) => {
   const allDefeats = matchReport.filter((game) => {
     if (!game.playerA.won && game.playerA.name === player) return game;
@@ -126,6 +112,7 @@ export const biggestDefeat = (matchReport, gameResultType, player) => {
   return allDefeats.length === 0 ? "-" : `${biggestDif} - 4`;
 };
 
+//Team stats per player
 export const teamStatsPerPlayer = (matchReport, player) => {
   const allGamesPlayer = matchReport.map((game) => {
     if (game.playerA.name === player) return game.playerA;
@@ -149,22 +136,3 @@ export const teamStatsPerPlayer = (matchReport, player) => {
   // console.log(obj);
   return Object.entries(obj);
 };
-// export const teamStats = teamStatsPerPlayer(matchReport, "Hugo");
-
-// console.log(
-//   "x",
-//   x.map((item) => item)
-// );
-// const test = Object.keys(teamStatsPerPlayer(matchReport, "Hugo"));
-// console.log(test);
-// const gameWonWithTeam = () => (matchReport, player, team) {
-//   const allVictories = matchReport.filter((game) => {
-//     if (game.playerA.won && game.playerA.name === player) {
-//       return game;
-//     }
-//     if (game.playerB.won && game.playerB.name === player) {
-//       return game;
-//     }
-//   });
-//   const teamStatistics
-// }

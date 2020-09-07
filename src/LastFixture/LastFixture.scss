@@ -1,0 +1,30 @@
+.App-header {
+  color: rgb(228, 225, 225);
+  section {
+    border: 1px solid whitesmoke;
+    width: 50%;
+    margin: 30px auto 0 auto;
+
+    border-radius: 40px;
+    min-width: 700px;
+  }
+  .wrapper__all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+  }
+  .info {
+    // background-color: limegreen;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px;
+    line-height: 4rem;
+    min-width: 260px;
+  }
+
+  .info span:first-of-type {
+    font-size: 1.4rem;
+  }
+}

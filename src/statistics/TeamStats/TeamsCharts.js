@@ -85,9 +85,9 @@ const data = {
 
 function TeamsChartWinsAndLossesPercentage() {
   return (
-    <div className="TeamsChartWinsAndLossesPercentage">
+    <figure className="TeamsChartWinsAndLossesPercentage">
       <Bar data={data} />
-    </div>
+    </figure>
   );
 }
 

@@ -14,6 +14,7 @@ import TeamsChartWinsAndLossesPercentage from "./TeamsCharts";
 function TeamTable() {
   return (
     <div>
+      <h2>Teams Statistics</h2>
       <section className="TeamTable">
         <div className="wrapper__team-stats">
           <div className="items item--1">Team</div>
