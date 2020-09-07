@@ -69,18 +69,21 @@ export const teamStreaksAndLast5Results = (matchReport, matchResult, team) => {
       else if (playerB.team === team && playerB.won) return "W";
       else return null;
     })
-    .filter((item) => item);
+    .filter((item) => item)
+    .reverse();
 
   if (gameResults.length === 0) return "--";
 
+  console.log("GR", gameResults);
   for (let res of gameResults) {
     //A streak starts counting after 2 consecutive wins
     if (res !== gameResults[0]) break;
     if (res === matchResult) teamStreak += 1;
+    console.log(team, teamStreak);
   }
 
   gameResults = gameResults.length > 5 ? gameResults.slice(0, 5) : gameResults;
-
+  console.log(gameResults);
   return teamStreak > 1 ? [teamStreak, gameResults] : ["0", gameResults];
 };
 
@@ -101,10 +104,7 @@ export const biggestWin = (matchReport, team, matchResult) => {
       (result[1][0] === team && result[1][1] === 4)
     );
   });
-  const teamScores = teamVictoriesMatches.flatMap((item, i) => [
-    item[0][1],
-    item[1][1],
-  ]);
+  const teamScores = teamVictoriesMatches.flatMap((item, i) => [item[0][1], item[1][1]]);
   const minTeamScore = Math.min(...teamScores);
 
   if (teamVictoriesMatches.length === 0) return "-";
@@ -124,13 +124,9 @@ export const biggestDefeat = (matchReport, team, matchResult) => {
   });
   const matchesWhereTeamLost = matchResults.filter(
     (item) =>
-      (item[0][0] === team && item[0][1] < 4) ||
-      (item[1][0] === team && item[1][1] < 4)
+      (item[0][0] === team && item[0][1] < 4) || (item[1][0] === team && item[1][1] < 4)
   );
-  const teamScores = matchesWhereTeamLost.flatMap((item, i) => [
-    item[0][1],
-    item[1][1],
-  ]);
+  const teamScores = matchesWhereTeamLost.flatMap((item, i) => [item[0][1], item[1][1]]);
   const minTeamScore = Math.min(...teamScores);
 
   if (matchesWhereTeamLost.length === 0) return "-";

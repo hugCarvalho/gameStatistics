@@ -55,7 +55,6 @@ export const resultLast5Games = (matchReport, name) => {
     }
     return matchResult.length > 5 ? matchResult.slice(0, 5) : matchResult;
   });
-  console.log(matchesResults);
   return matchesResults.length > 5
     ? matchesResults.reverse().slice(0, 5)
     : matchesResults.reverse();
@@ -69,7 +68,6 @@ export const calcPlayerStreaks = (resultLast5Games, gameResultType) => {
     if (res !== gameResultType.toUpperCase()) break;
     else playerStreak += 1;
   }
-  console.log(lastResults);
   return playerStreak > 1 ? playerStreak : 0;
 };
 

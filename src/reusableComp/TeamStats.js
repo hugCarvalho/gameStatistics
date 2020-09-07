@@ -15,15 +15,9 @@ function TeamStats({ name }) {
   return (
     <div className="TeamStats">
       <div className="items item--1">{name}</div>
-      <div className="items item--2">
-        {numOfGamesEachTeam(matchesReport, name)}
-      </div>
-      <div className="items item--3">
-        {numOfWinsEachTeam(matchesReport, name)}
-      </div>
-      <div className="items item--4">
-        {numOfDefeatsEachTeam(matchesReport, name)}
-      </div>
+      <div className="items item--2">{numOfGamesEachTeam(matchesReport, name)}</div>
+      <div className="items item--3">{numOfWinsEachTeam(matchesReport, name)}</div>
+      <div className="items item--4">{numOfDefeatsEachTeam(matchesReport, name)}</div>
       <div className="items item--6">
         {percentagesWinsAndLosses(matchesReport, "w", name)}%
       </div>
@@ -31,7 +25,7 @@ function TeamStats({ name }) {
         {percentagesWinsAndLosses(matchesReport, "l", name)}%
       </div>
       <div className="items item--6">
-        {teamStreaksAndLast5Results(matchesReport, null, name)[1]}
+        {teamStreaksAndLast5Results(matchesReport, null, name)[1].reverse()}
       </div>
       <div className="items item--6">
         {teamStreaksAndLast5Results(matchesReport, "W", name)[0]}
@@ -39,12 +33,8 @@ function TeamStats({ name }) {
       <div className="items item--6">
         {teamStreaksAndLast5Results(matchesReport, "D", name)[0]}
       </div>
-      <div className="items item--6">
-        {biggestWin(matchesReport, name, "W")}
-      </div>
-      <div className="items item--6">
-        {biggestDefeat(matchesReport, name, "D")}
-      </div>
+      <div className="items item--6">{biggestWin(matchesReport, name, "W")}</div>
+      <div className="items item--6">{biggestDefeat(matchesReport, name, "D")}</div>
     </div>
   );
 }
