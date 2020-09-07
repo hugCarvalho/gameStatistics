@@ -19,7 +19,7 @@ function LastFixture() {
             <span>{lastMatch.playerA.team}</span>
             <span>{lastMatch.playerA.score}</span>
           </div>
-          <div> Vs </div>
+          <div> vs </div>
           <div className="info">
             <span>{lastMatch.playerB.name}</span>
             <span>{lastMatch.playerB.team}</span>

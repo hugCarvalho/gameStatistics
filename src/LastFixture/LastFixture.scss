@@ -2,7 +2,7 @@
   color: rgb(228, 225, 225);
   section {
     border: 1px solid whitesmoke;
-    width: 50%;
+    // width: 50%;
     margin: 30px auto 0 auto;
 
     border-radius: 40px;
@@ -17,10 +17,12 @@
   }
   .info {
     // background-color: limegreen;
+    // border: 1px solid whitesmoke;
+
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    padding: 60px 30px;
+    padding: 50px 20px;
     line-height: 4rem;
     min-width: 260px;
   }
