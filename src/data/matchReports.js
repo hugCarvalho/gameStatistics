@@ -159,6 +159,22 @@ const matchReport = [
       score: 0,
     },
   },
+  {
+    id: 11,
+    date: "08-09-20",
+    playerA: {
+      name: "Hugo",
+      team: "Los Angeles",
+      won: true,
+      score: 4,
+    },
+    playerB: {
+      name: "Eddie",
+      team: "Boston",
+      won: false,
+      score: 0,
+    },
+  },
 ];
 
 export default matchReport;
