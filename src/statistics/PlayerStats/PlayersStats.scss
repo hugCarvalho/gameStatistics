@@ -1,7 +1,10 @@
 .PlayersStats {
-  // background-color: rgb(48, 50, 53); //use this one if dark theme
-  padding: 4px;
+  // background-color: rgb(32, 32, 31); //use this if dark theme
+  padding: 20px 5px 20px 5px;
   line-height: 1.6rem;
+  h2 {
+    padding-bottom: 40px;
+  }
   .wrapper__table-legend--player-data {
     // background-color: yellow;
     display: flex;

@@ -5,37 +5,38 @@ import { gameInfo } from "../GameInfo/GameInfo";
 import TeamStats from "../../reusableComp/TeamStats";
 import TeamsChartWinsAndLossesPercentage from "./TeamsCharts";
 
-//TODOS PRIORiTIES
-//TODO: move fn to dedicated file && refactor them
-//TODO: make reusable component for each team
-//TODO: make graph
 //TODO: add styling
 
 function TeamTable() {
   return (
-    <div>
+    <section className="TeamStatistics">
       <h2>Teams Statistics</h2>
-      <section className="TeamTable">
-        <div className="wrapper__team-stats">
-          <div className="items item--1">Team</div>
-          <div className="items item--2">Games</div>
-          <div className="items item--3">Wins</div>
-          <div className="items item--4">Defeat</div>
-          <div className="items item--5">Wins %</div>
-          <div className="items item--6">Defeats %</div>
-          <div className="items item--6">Last 5 games</div>
-          <div className="items item--6">W streak</div>
-          <div className="items item--6">L streak</div>
-          <div className="items item--6">Biggest win</div>
-          <div className="items item--6">Biggest Defeat</div>
+      <section className="wrapper-one">
+        <div className="team-table">
+          <section className="wrapper__team-stats">
+            <div className="items ">Team</div>
+            <div className="items ">Games</div>
+            <div className="items ">Wins</div>
+            <div className="items ">Defeat</div>
+            <div className="items ">Wins %</div>
+            <div className="items ">Defeats %</div>
+            <div className="items ">Last 5 games</div>
+            <div className="items ">W streak</div>
+            <div className="items ">L streak</div>
+            <div className="items ">Biggest win</div>
+            <div className="items ">Biggest Defeat</div>
+          </section>
+
+          {gameInfo.teams.map((name, i) => {
+            return <TeamStats name={name} key={i} />;
+          })}
         </div>
 
-        {gameInfo.teams.map((name, i) => {
-          return <TeamStats name={name} key={i} />;
-        })}
-        <TeamsChartWinsAndLossesPercentage />
+        <section>
+          <TeamsChartWinsAndLossesPercentage />
+        </section>
       </section>
-    </div>
+    </section>
   );
 }
 

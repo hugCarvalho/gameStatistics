@@ -1,13 +1,31 @@
-.TeamTable {
-  // background-color: rgb(230, 230, 22);
-  display: flex;
+.TeamStatistics {
+  padding: 20px 5px 20px 5px;
+  background-color: rgb(32, 32, 31);
+  color: whitesmoke;
 
-  line-height: 1.6rem;
-  min-width: 1065px;
+  h2 {
+    padding-bottom: 40px;
+  }
+
+  .wrapper-one {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .team-table {
+    // background-color: yellow;
+    display: flex;
+    align-items: center;
+    line-height: 1.6rem;
+    border-radius: 3px;
+  }
 
   .wrapper__team-stats {
+    color: black;
+    background-color: #87898a;
     padding: 4px;
     border-right: 1px solid;
     min-width: 110px;
+    border-radius: 3px;
+    text-align: left;
   }
 }

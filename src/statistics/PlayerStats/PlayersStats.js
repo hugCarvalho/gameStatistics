@@ -29,9 +29,11 @@ function PlayersStats() {
           <PlayerStats playerName="Eddie" />
         </section>
       </div>
+
       <section className="container__charts">
         <PlayerWinLostChart />
       </section>
+
       <section>
         <PlayerTeamsPieChart />
       </section>
