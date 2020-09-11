@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<header
+  className="App-header"
+>
+  <h1>
+    Baseball Highlights Statistics
+  </h1>
+  <h3>
+    "No matches have been played yet"
+  </h3>
+</header>
+`;
