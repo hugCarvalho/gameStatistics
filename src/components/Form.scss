@@ -1,0 +1,15 @@
+.player-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form {
+  width: 50%;
+  .wrapper__rounds {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    width: 20%;
+  }
+}
