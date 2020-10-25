@@ -1,17 +1,43 @@
 import React from "react";
 import "./Form.scss";
 
-const database = [];
+const database = {
+  games: [],
+  players: [],
+};
 
 //Component
 //1 - Form
 //2 - Player Input
 
+export function RenderEverything() {
+  return <></>;
+}
+
+export function RenderLastResult() {
+  return (
+    <div>
+      <h2>Last Fixture</h2>
+      <date>Date</date>
+      <p>Add result:</p>
+      <button>+</button>
+    </div>
+  );
+}
+
 export function Form() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(database);
+  const [all, setAll] = React.useState();
+  const [arr, setArr] = React.useState({ games: [] });
+
+  Object.freeze(arr);
+  Object.freeze(arr.games);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // setArr((state) => {
+    //   return { ...state, games: [...state.games, 21] };
+    // });
 
     const { calc, namePlayerOne, round1, round2, round3 } = {
       namePlayerOne: e.target.elements["player01-name"].value,
@@ -22,6 +48,7 @@ export function Form() {
         return +round1 + +round2 + +round3;
       },
     };
+
     const playerTwo = {
       name: e.target.elements["player02-name"].value,
       round1: Number(e.target.elements["player02-round1"].value),
@@ -29,28 +56,71 @@ export function Form() {
       round3: Number(e.target.elements["player02-round3"].value),
     };
 
-    setMatchesDatabase({
-      id: Math.random(),
-      date: Date.now(),
-      playerOne: {
-        name: namePlayerOne,
-        rounds: [+round1, +round2, +round3],
-        total: calc(),
-      },
-      playerTwo: {
-        name: playerTwo.name,
-        rounds: [playerTwo.round1, playerTwo.round2, playerTwo.round3],
-        total: playerTwo.round1 + playerTwo.round2 + playerTwo.round3,
-      },
+    setMatchesDatabase((state) => {
+      return {
+        ...state,
+        games: [
+          ...state.games,
+          {
+            id: 1,
+            date: Date.now(),
+            playerOne: {
+              name: namePlayerOne,
+              rounds: [+round1, +round2, +round3],
+              total: calc(),
+            },
+            playerTwo: {
+              name: playerTwo.name,
+              rounds: [playerTwo.round1, playerTwo.round2, playerTwo.round3],
+              total: playerTwo.round1 + playerTwo.round2 + playerTwo.round3,
+            },
+          },
+        ],
+      };
     });
+
+    document.querySelector("form").reset();
   };
 
   React.useEffect(() => {
-    console.dir("database", matchesDatabase);
-  }, [matchesDatabase]);
+    // console.dir("MATCHES DATABASE EFFECT", matchesDatabase);
+    // console.log("games:", games);
+    console.log("database:", matchesDatabase);
+    // console.log("arr", arr);
+  }, [matchesDatabase, all, arr]);
+
+  // const fecha = new Date(1603661548350);
+  const fecha = new Date(matchesDatabase.games[0] ? matchesDatabase.games[0].date : "");
 
   return (
     <>
+      {/* RENDER LAST RESULT */}
+
+      <section>
+        <h2>Last Fixture</h2>
+        {/* <time>
+           Date:{" "}
+          {matchesDatabase.games[0]
+            ? matchesDatabase.games[0].datetoLocaleString("de", {
+                year: "numeric",
+                day: "numeric",
+                month: "numeric",
+              })
+            : null}
+        </time>  */}
+        {/* <time>Date: {fecha ? fecha.toDateString() : ""}</time> */}
+        <time>
+          Date:{" "}
+          {fecha.toLocaleString("de", {
+            year: "numeric",
+            day: "numeric",
+            month: "numeric",
+          })}
+        </time>
+        {/* <time>Date: {fecha}</time> */}
+        <p>Add result:</p>
+        <button>+</button>
+      </section>
       {}
       <form className="Form" onSubmit={handleSubmit}>
         {/* Do component of player form */}
