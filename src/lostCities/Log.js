@@ -1,18 +1,24 @@
 import React from "react";
 
-function Log({ matchesDatabase }) {
+function Log({ matchesDatabase, date }) {
   return (
     <section>
       <h4>Games Log</h4>
       <p>Games played: {matchesDatabase.games.length} </p>
       <ul>
         {matchesDatabase.games.map((item) => {
-          const { playerA, playerB, date, id } = item;
+          const { playerA, playerB, id } = item;
 
           console.log("pA", playerA, item);
           return (
             <div key={id} className="wrapper__log">
-              <div>{date}</div>
+              <div>
+                {new Date(matchesDatabase.games[0].date).toLocaleString("de", {
+                  year: "numeric",
+                  day: "numeric",
+                  month: "numeric",
+                })}
+              </div>
               <div className="wrapper__game-result">
                 <span>
                   {playerA.name} : {playerA.rounds[0]} - {playerA.rounds[1]} -{" "}

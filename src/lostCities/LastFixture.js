@@ -1,20 +1,12 @@
 import React from "react";
+import formatDate from "./formatDate";
 import "./LastFixture.scss";
 
-function LastFixture({ date, matchesDatabase }) {
+function LastFixture({ matchesDatabase }) {
   return (
     <section className="LastFixture">
       <h2>Last Fixture</h2>
-      <time>
-        Date:{" "}
-        {date
-          ? date.toLocaleString("de", {
-              year: "numeric",
-              day: "numeric",
-              month: "numeric",
-            })
-          : null}
-      </time>
+      <time>Date: {matchesDatabase.games[0].date && formatDate(matchesDatabase)}</time>
       <table className="greenTable">
         <thead>
           <tr>
