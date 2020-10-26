@@ -166,10 +166,14 @@ export function Form() {
       </section>
       {}
       <form className="Form" onSubmit={handleSubmit}>
-        <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
-        <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
+        <div className="player-forms">
+          <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
+          <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
+        </div>
         <div>
-          <button type="submit">Submit</button>
+          <button className="btn-submit" type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </>
@@ -188,25 +192,6 @@ export function Form() {
 //   }
 //   return (
 //     <form onSubmit={handleSubmit}>
-//       <div>
-//         <label htmlFor="playerA-name">Name</label>
-//         <input id="playerA-name" name="playerA-name" type="text" />
-//       </div>
-//       <div>
-//         <label htmlFor="playerA-round1">Round 1</label>
-//         <input id="playerA-round1" name="playerA-round1" type="text" />
-//       </div>
-//       <div>
-//         <label htmlFor="playerA-round2">Round 2</label>
-//         <input id="playerA-round2" name="playerA-round2" type="text" />
-//       </div>
-//       <div>
-//         <label htmlFor="playerA-round3">Round 3</label>
-//         <input id="playerA-round3" name="playerA-round3" type="text" />
-//       </div>
-//       <div>
-//         <button type="submit">Submit</button>
-//       </div>
 //     </form>
 //   );
 // }

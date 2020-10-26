@@ -1,0 +1,43 @@
+.PlayerForm {
+  background-color: pink;
+  width: 310px;
+  min-width: 310px;
+  margin: 25px 15px;
+  display: flex;
+  flex-direction: column;
+
+  .name-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .name {
+    width: 60%;
+  }
+  .wrapper__total {
+    background-color: brown;
+    & > input {
+      // border: none;
+      background-color: lightgray;
+      width: 30%;
+      cursor: not-allowed;
+      text-align: center;
+    }
+  }
+  .wrapper__rounds {
+    margin: auto;
+    display: flex;
+    background-color: green;
+    .wrapper__label-input {
+      background-color: yellow;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 5px;
+    }
+    input {
+      width: 80%;
+    }
+  }
+}

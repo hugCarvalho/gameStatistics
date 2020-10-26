@@ -1,4 +1,5 @@
 import React from "react";
+import "./PlayerForm.scss";
 
 function PlayerForm({ player, matchesDatabase }) {
   return (
