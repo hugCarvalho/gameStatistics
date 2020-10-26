@@ -1,5 +1,6 @@
 import React from "react";
 import LastFixture from "../lostCities/LastFixture";
+import localStorageGet, { localStorageSet } from "../lostCities/LocalStorage";
 import Log from "../lostCities/Log";
 import PlayerForm from "../lostCities/PlayerForm";
 import "./Form.scss";
@@ -9,37 +10,11 @@ const database = {
   players: [],
 };
 
-//ComrAnt
-//1 - Form
-//2 - Player Input
-
-export function RenderEverything() {
-  return <></>;
-}
-
-export function RenderLastResult() {
-  return (
-    <div>
-      <h2>Last Fixture</h2>
-      <date>Date</date>
-      <p>Add result:</p>
-      <button>+</button>
-    </div>
-  );
-}
-
 export function Form() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(database);
-  const [total, setTotal] = React.useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("HANDL SUBMIT");
-    // setArr((state) => {
-    //   return { ...state, games: [...state.games, 21] };
-    // });
-
     const { calc, namePlayerA, round1, round2, round3 } = {
       namePlayerA: e.target.elements["playerA-name"].value,
       round1: e.target.elements["playerA-round1"].value,
@@ -56,7 +31,7 @@ export function Form() {
       round2: Number(e.target.elements["playerB-round2"].value),
       round3: Number(e.target.elements["playerB-round3"].value),
     };
-    console.log(playerB);
+
     setMatchesDatabase((state) => {
       return {
         ...state,
@@ -83,13 +58,16 @@ export function Form() {
     // document.querySelector("form").reset();
   };
 
+  //LOCAL STORAGE: GET
+  React.useEffect(() => {
+    localStorageGet(setMatchesDatabase);
+  }, []);
+
+  //LOCAL STORAGE: SET
   React.useEffect(() => {
     console.log("database:", matchesDatabase);
+    localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
-
-  React.useEffect(() => {
-    // console.log("TOTAL", total);
-  }, [total]);
 
   const date = matchesDatabase.games[0] ? new Date(matchesDatabase.games[0].date) : null;
   return (
