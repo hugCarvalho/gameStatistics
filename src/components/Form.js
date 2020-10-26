@@ -1,5 +1,6 @@
 import React from "react";
 import LastFixture from "../lostCities/LastFixture";
+import Log from "../lostCities/Log";
 import PlayerForm from "../lostCities/PlayerForm";
 import "./Form.scss";
 
@@ -90,20 +91,17 @@ export function Form() {
     // console.log("TOTAL", total);
   }, [total]);
 
-  // const fecha = new Date(1603661548350);
-  const fecha = matchesDatabase.games[0] ? new Date(matchesDatabase.games[0].date) : null;
-  // console.log(fecha);
+  const date = matchesDatabase.games[0] ? new Date(matchesDatabase.games[0].date) : null;
   return (
     <>
-      <section>Games History</section>
-      <p>{matchesDatabase.games.length} games were played</p>
-      <div>
-        date + similar to last fixture (design similar to my todo list) + delete + edit{" "}
-      </div>
       {/* RENDER LAST RESULT */}
-      <LastFixture date={fecha} matchesDatabase={matchesDatabase} />
-      <p>Add result:</p>
-      <button>+</button>
+      {matchesDatabase.games.length ? (
+        <LastFixture date={date} matchesDatabase={matchesDatabase} />
+      ) : (
+        <h3>There are no games recorded yet. Why don't you add an entry? </h3>
+      )}
+
+      <button>Add entry</button>
       {}
       {/***********  FORM */}
       <form className="Form" onSubmit={handleSubmit}>
@@ -117,6 +115,7 @@ export function Form() {
           </button>
         </div>
       </form>
+      <Log matchesDatabase={matchesDatabase} />
     </>
   );
 }
