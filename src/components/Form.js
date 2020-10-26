@@ -1,4 +1,5 @@
 import React from "react";
+import LastFixture from "../lostCities/LastFixture";
 import PlayerForm from "../lostCities/PlayerForm";
 import "./Form.scss";
 
@@ -100,71 +101,11 @@ export function Form() {
         date + similar to last fixture (design similar to my todo list) + delete + edit{" "}
       </div>
       {/* RENDER LAST RESULT */}
-      <section>
-        <h2>Last Fixture</h2>
-        {/* <time>
-           Date:{" "}
-          {matchesDatabase.games[0]
-            ? matchesDatabase.games[0].datetoLocaleString("de", {
-                year: "numeric",
-                day: "numeric",
-                month: "numeric",
-              })
-            : null}
-        </time>  */}
-        {/* <time>Date: {fecha ? fecha.toDateString() : ""}</time> */}
-        <time>
-          Date:{" "}
-          {fecha
-            ? fecha.toLocaleString("de", {
-                year: "numeric",
-                day: "numeric",
-                month: "numeric",
-              })
-            : null}
-        </time>
-
-        <div>
-          <h3>
-            Name:{" "}
-            {matchesDatabase.games[0]
-              ? matchesDatabase.games.reverse()[0].playerA.name // !!! Reverses in place !!!
-              : ""}
-            <span>
-              Rounds:
-              {matchesDatabase.games[0]
-                ? `${matchesDatabase.games[0].playerA.rounds[0]} - ${matchesDatabase.games[0].playerA.rounds[1]} - ${matchesDatabase.games[0].playerA.rounds[2]}`
-                : ""}{" "}
-            </span>
-            <span>
-              Total Score:{" "}
-              {matchesDatabase.games[0] ? matchesDatabase.games[0].playerA.total : ""}
-            </span>
-            <span>edit</span>
-          </h3>
-        </div>
-        <div>
-          <h3>
-            Name: {matchesDatabase.games[0] ? matchesDatabase.games[0].playerB.name : ""}
-            <span>
-              Rounds:
-              {matchesDatabase.games[0]
-                ? `${matchesDatabase.games[0].playerB.rounds[0]} - ${matchesDatabase.games[0].playerB.rounds[1]} - ${matchesDatabase.games[0].playerB.rounds[2]}`
-                : ""}{" "}
-            </span>
-            <span>
-              Total Score:{" "}
-              {matchesDatabase.games[0] ? matchesDatabase.games[0].playerB.total : ""}
-            </span>
-            <span>edit</span>
-          </h3>
-        </div>
-
-        {/* <time>Date: {fecha}</time> */}
-        <p>Add result:</p>
-        <button>+</button>
-      </section>
+      <LastFixture date={fecha} matchesDatabase={matchesDatabase} />
+      <p>Add result:</p>
+      <button>+</button>
       {}
+      {/***********  FORM */}
       <form className="Form" onSubmit={handleSubmit}>
         <div className="player-forms">
           <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
