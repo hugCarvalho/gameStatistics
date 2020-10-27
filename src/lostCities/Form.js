@@ -28,6 +28,12 @@ export function RenderLostCitiesPage() {
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
 
+  const resetForm = () => {
+    document.querySelector("form").reset();
+    const resetTotal = document.querySelectorAll(".reset");
+    resetTotal.forEach((el) => (el.value = 0));
+  };
+
   return (
     <>
       <h1>Lost Cities</h1>
@@ -39,22 +45,27 @@ export function RenderLostCitiesPage() {
       )}
       {/* TODO: //REPLACE */}
       <div style={{ display: "flex" }}>
-        <button>Add entry</button>
+        <button onClick={() => setShowAddEntriesForm((state) => !state)}>
+          {showAddEntriesForm ? "Close form" : "Add entry"}
+        </button>
+        {showAddEntriesForm && <button onClick={resetForm}>reset form</button>}
       </div>
 
       {/***********  FORM */}
       {showAddEntriesForm && (
-        <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
-          <div className="player-forms">
-            <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
-            <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
-          </div>
-          <div>
-            <button className="btn-submit" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
+        <>
+          <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
+            <div className="player-forms">
+              <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
+              <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
+            </div>
+            <div>
+              <button className="btn-submit" type="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </>
       )}
       <DatabaseContext.Provider value={{ matchesDatabase, setMatchesDatabase }}>
         <Log />
