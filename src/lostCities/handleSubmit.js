@@ -23,7 +23,7 @@ const handleSubmit = (e, setMatchesDatabase) => {
       games: [
         ...state.games,
         {
-          id: 1,
+          id: +(Math.random() * 1000000).toFixed(0),
           date: Date.now(),
           playerA: {
             name: namePlayerA,

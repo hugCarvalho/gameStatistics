@@ -5,7 +5,7 @@ import "./App.scss";
 // import PlayersStats from "./statistics/PlayerStats/PlayersStats";
 // import matchReports from "./data/matchReports";
 import { lostCities } from "./data/lostCities";
-import { Form } from "./components/Form";
+import { Form } from "./lostCities/Form";
 
 function App() {
   return (

@@ -1,10 +1,12 @@
-import React from "react";
-import handleSubmit from "../lostCities/handleSubmit";
-import LastFixture from "../lostCities/LastFixture";
-import localStorageGet, { localStorageSet } from "../lostCities/localStorage";
-import Log from "../lostCities/Log";
-import PlayerForm from "../lostCities/PlayerForm";
+import React, { createContext } from "react";
+import handleSubmit from "./handleSubmit";
+import LastFixture from "./LastFixture";
+import localStorageGet, { localStorageSet } from "./localStorage";
+import Log from "./Log";
+import PlayerForm from "./PlayerForm";
 import "./Form.scss";
+
+export const DatabaseContext = createContext();
 
 const database = {
   games: [],
@@ -48,7 +50,9 @@ export function Form() {
           </button>
         </div>
       </form>
-      <Log matchesDatabase={matchesDatabase} />
+      <DatabaseContext.Provider value={{ matchesDatabase, setMatchesDatabase }}>
+        <Log />
+      </DatabaseContext.Provider>
     </>
   );
 }
