@@ -4,7 +4,7 @@ import LastFixture from "./LastFixture";
 import localStorageGet, { localStorageSet } from "./localStorage";
 import Log from "./Log";
 import PlayerForm from "./PlayerForm";
-import "./Form.scss";
+import "./LostCities.scss";
 
 export const DatabaseContext = createContext();
 
@@ -13,7 +13,7 @@ const database = {
   players: [],
 };
 
-export function RenderLostCitiesPage() {
+export function LostCities() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(database);
   const [formIsOpen, setFormIsOpen] = React.useState(false);
 

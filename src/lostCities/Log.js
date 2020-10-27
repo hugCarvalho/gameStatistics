@@ -1,6 +1,6 @@
 import React from "react";
 import "./Log.scss";
-import { DatabaseContext } from "./Form";
+import { DatabaseContext } from "./LostCities";
 
 function setLogEntryColor(index) {
   return index % 2 ? { backgroundColor: "lightGrey" } : { backgroundColor: "darkGrey" };
@@ -23,8 +23,8 @@ function Log() {
 
   return (
     <section className="Log">
-      <h4>Games Log</h4>
-      <p>Games played: {games.length} </p>
+      <h4>Match Log</h4>
+      <p>Matches played: {games.length} </p>
       <ul>
         {games.map((item, i) => {
           const { playerA, playerB, id } = item;
