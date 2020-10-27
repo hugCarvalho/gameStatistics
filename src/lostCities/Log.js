@@ -2,44 +2,43 @@ import React from "react";
 import "./Log.scss";
 import { DatabaseContext } from "./Form";
 
+function setLogEntryColor(index) {
+  return index % 2 ? { backgroundColor: "lightGrey" } : { backgroundColor: "darkGrey" };
+}
+
 function Log() {
   const { matchesDatabase, setMatchesDatabase } = React.useContext(DatabaseContext);
+  const { games } = matchesDatabase;
+
   const deleteEntry = (id) => {
     console.log("clicked", matchesDatabase);
-    const { games } = matchesDatabase;
 
-    console.log(id);
     const res = games.filter((entry) => entry.id !== id);
-    //const res = games.find((entry) => entry.id === id);
     setMatchesDatabase((state) => {
       return {
         ...state,
         games: res,
       };
     });
-    console.log(res);
   };
 
   return (
     <section className="Log">
       <h4>Games Log</h4>
-      <p>Games played: {matchesDatabase.games.length} </p>
+      <p>Games played: {games.length} </p>
       <ul>
-        {matchesDatabase.games.map((item) => {
+        {games.map((item, i) => {
           const { playerA, playerB, id } = item;
 
-          {
-            /* console.log("pA", playerA, item); */
-          }
           return (
-            <div key={id} className="wrapper__log">
-              <div>
-                {new Date(matchesDatabase.games[0].date).toLocaleString("de", {
+            <li key={id} className="wrapper__log" style={setLogEntryColor(i)}>
+              <time>
+                {new Date(games[0].date).toLocaleString("de", {
                   year: "numeric",
                   day: "numeric",
                   month: "numeric",
                 })}
-              </div>
+              </time>
               <div className="wrapper__game-result">
                 <span>
                   {playerA.name} : {playerA.rounds[0]} - {playerA.rounds[1]} -{" "}
@@ -49,13 +48,12 @@ function Log() {
                   {playerB.name} : {playerB.rounds[0]} - {playerB.rounds[1]} -{" "}
                   {playerB.rounds[2]} = {playerB.total}
                 </span>
-                <span>
-                  <button>edit</button>
-                </span>
-
-                <button onClick={() => deleteEntry(id)}>X</button>
               </div>
-            </div>
+              <span>
+                <button>edit</button>
+                <button onClick={() => deleteEntry(id)}>X</button>
+              </span>
+            </li>
           );
         })}
       </ul>

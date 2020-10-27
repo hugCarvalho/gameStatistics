@@ -1,3 +1,21 @@
 .Log {
   background-color: beige;
+  padding: 20px 7px;
+
+  .wrapper__log {
+    // background-color: gray;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wrapper__game-result {
+    // background-color: lightcoral;
+    padding: 0 7px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    // min-width: 200px;
+  }
 }
