@@ -13,8 +13,9 @@ const database = {
   players: [],
 };
 
-export function Form() {
+export function RenderLostCitiesPage() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(database);
+  const [showAddEntriesForm, setShowAddEntriesForm] = React.useState(false);
 
   //LOCAL STORAGE: GET
   React.useEffect(() => {
@@ -29,27 +30,32 @@ export function Form() {
 
   return (
     <>
+      <h1>Lost Cities</h1>
       {/* RENDER LAST RESULT */}
       {matchesDatabase.games.length ? (
         <LastFixture matchesDatabase={matchesDatabase} />
       ) : (
         <h3>There are no games recorded yet. Why don't you add an entry? </h3>
       )}
-
-      <button>Add entry</button>
+      {/* TODO: //REPLACE */}
+      <div style={{ display: "flex" }}>
+        <button>Add entry</button>
+      </div>
 
       {/***********  FORM */}
-      <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
-        <div className="player-forms">
-          <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
-          <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
-        </div>
-        <div>
-          <button className="btn-submit" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+      {showAddEntriesForm && (
+        <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
+          <div className="player-forms">
+            <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
+            <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
+          </div>
+          <div>
+            <button className="btn-submit" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      )}
       <DatabaseContext.Provider value={{ matchesDatabase, setMatchesDatabase }}>
         <Log />
       </DatabaseContext.Provider>

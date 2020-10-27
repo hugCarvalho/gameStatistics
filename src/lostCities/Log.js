@@ -12,12 +12,11 @@ function Log() {
 
   const deleteEntry = (id) => {
     console.log("clicked", matchesDatabase);
-
-    const res = games.filter((entry) => entry.id !== id);
+    const newDatabase = games.filter((entry) => entry.id !== id);
     setMatchesDatabase((state) => {
       return {
         ...state,
-        games: res,
+        games: newDatabase,
       };
     });
   };
@@ -50,7 +49,6 @@ function Log() {
                 </span>
               </div>
               <span>
-                <button>edit</button>
                 <button onClick={() => deleteEntry(id)}>X</button>
               </span>
             </li>

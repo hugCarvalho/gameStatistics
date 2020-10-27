@@ -1,5 +1,5 @@
 .Log {
-  background-color: beige;
+  // background-color: beige;
   padding: 20px 7px;
 
   .wrapper__log {
@@ -17,5 +17,9 @@
     flex-direction: column;
     text-align: center;
     // min-width: 200px;
+  }
+
+  p {
+    padding: 10px;
   }
 }

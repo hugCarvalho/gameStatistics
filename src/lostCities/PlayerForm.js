@@ -34,11 +34,11 @@ function PlayerForm({ player, matchesDatabase }) {
       </div>
 
       {/***  TOTAL ***/}
-      <div className="wrapper__total name-total">
-        <label htmlFor="playerOne-total">Total</label>
+      <div className="wrapper__total name-total total">
+        <label htmlFor={`${player}-total`}>Total</label>
         <input
-          id="playerOne-total"
-          name="playerOne-total"
+          id={`${player}-total`}
+          name={`${player}-total`}
           value={matchesDatabase.games[0] ? matchesDatabase.games[0][player].total : 0}
           readOnly
         />

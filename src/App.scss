@@ -1,10 +1,21 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .hidden {
   visibility: hidden;
 }
+
+button {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 /* 
 .App-logo {
   height: 40vmin;

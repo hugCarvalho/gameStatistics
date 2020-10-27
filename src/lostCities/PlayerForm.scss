@@ -1,5 +1,8 @@
 .PlayerForm {
-  background-color: pink;
+  // background-color: pink;
+  border: lightgray 1px solid;
+  border-radius: 5px;
+  padding: 10px;
   width: 310px;
   min-width: 310px;
   margin: 25px 15px;
@@ -15,21 +18,24 @@
     width: 60%;
   }
   .wrapper__total {
-    background-color: brown;
+    // background-color: brown;
     & > input {
       // border: none;
       background-color: lightgray;
       width: 30%;
       cursor: not-allowed;
       text-align: center;
+      padding: 1px;
+      margin-top: 2px;
     }
   }
   .wrapper__rounds {
     margin: auto;
     display: flex;
-    background-color: green;
+    // background-color: green;
     .wrapper__label-input {
-      background-color: yellow;
+      // background-color: gray;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -38,6 +44,16 @@
     }
     input {
       width: 80%;
+    }
+  }
+
+  div.total {
+    // background-color: pink;
+    // display: flex;
+    // flex-direction: row;
+    justify-content: center;
+    label {
+      padding-right: 5px;
     }
   }
 }

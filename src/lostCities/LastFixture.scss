@@ -1,11 +1,17 @@
 .LastFixture {
-  background-color: aquamarine;
+  // background-color: aquamarine;
+  margin: auto;
+  min-width: 70%;
+  // width: 100%;
+  padding: 5px 5px 15px 5px;
+
   table.greenTable {
     font-family: Georgia, serif;
     border: 6px solid #24943a;
     background-color: #d4eed1;
     width: 100%;
     text-align: center;
+    margin-top: 10px;
   }
   table.greenTable td,
   table.greenTable th {
