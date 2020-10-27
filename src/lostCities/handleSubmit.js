@@ -1,3 +1,22 @@
+const addIfNewPlayer = (state, namePlayerA, namePlayerB) => {
+  const PlayerANameAlreadyExists = state.games.find((game) => {
+    return namePlayerA === game.playerA.name || namePlayerA === game.playerB.name;
+  });
+  const PlayerBNameAlreadyExists = state.games.find((game) => {
+    return namePlayerB === game.playerA.name || namePlayerB === game.playerB.name;
+  });
+
+  let result = [...state.players];
+  if (!PlayerANameAlreadyExists) {
+    result.push(namePlayerA);
+  }
+  if (!PlayerBNameAlreadyExists) {
+    result.push(namePlayerB);
+  }
+
+  return [...result];
+};
+
 const handleSubmit = (e, setMatchesDatabase) => {
   e.preventDefault();
   const { calc, namePlayerA, round1, round2, round3 } = {
@@ -23,7 +42,7 @@ const handleSubmit = (e, setMatchesDatabase) => {
       games: [
         ...state.games,
         {
-          id: +(Math.random() * 1000000).toFixed(0),
+          id: +(Math.random() * 1000000).toFixed(0), //replace with UUID
           date: Date.now(),
           playerA: {
             name: namePlayerA,
@@ -37,6 +56,7 @@ const handleSubmit = (e, setMatchesDatabase) => {
           },
         },
       ],
+      players: addIfNewPlayer(state, namePlayerA, playerB.name),
     };
   });
 

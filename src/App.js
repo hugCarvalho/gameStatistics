@@ -5,7 +5,7 @@ import "./App.scss";
 // import PlayersStats from "./statistics/PlayerStats/PlayersStats";
 // import matchReports from "./data/matchReports";
 import { lostCities } from "./data/lostCities";
-import { RenderLostCitiesPage } from "./lostCities/Form";
+import { RenderLostCitiesPage as RenderLostCities } from "./lostCities/Form";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       </main>
       <a href="https://www.counters-free.net/">https://www.counters-free.net</a>{" "} */}
 
-      <RenderLostCitiesPage />
+      <RenderLostCities />
     </div>
   );
 }

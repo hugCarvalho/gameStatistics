@@ -46,7 +46,7 @@ function LastFixture({ matchesDatabase }) {
             </td>
           </tr>
           <tr>
-            <td>Round_3</td>
+            <td>Round 3</td>
             <td>
               {" "}
               {matchesDatabase.games[0] &&
@@ -58,9 +58,19 @@ function LastFixture({ matchesDatabase }) {
             </td>
           </tr>
           <tr>
-            <td>Total</td>
-            <td>{matchesDatabase.games[0] && matchesDatabase.games[0].playerA.total}</td>
-            <td>{matchesDatabase.games[0] && matchesDatabase.games[0].playerB.total}</td>
+            <td>
+              <strong>Total</strong>
+            </td>
+            <td>
+              <strong>
+                {matchesDatabase.games[0] && matchesDatabase.games[0].playerA.total}
+              </strong>
+            </td>
+            <td>
+              <strong>
+                {matchesDatabase.games[0] && matchesDatabase.games[0].playerB.total}
+              </strong>
+            </td>
           </tr>
         </tbody>
       </table>

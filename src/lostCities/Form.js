@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { Children, createContext } from "react";
 import handleSubmit from "./handleSubmit";
 import LastFixture from "./LastFixture";
 import localStorageGet, { localStorageSet } from "./localStorage";
@@ -15,7 +15,7 @@ const database = {
 
 export function RenderLostCitiesPage() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(database);
-  const [showAddEntriesForm, setShowAddEntriesForm] = React.useState(false);
+  const [formIsOpen, setFormIsOpen] = React.useState(false);
 
   //LOCAL STORAGE: GET
   React.useEffect(() => {
@@ -28,10 +28,13 @@ export function RenderLostCitiesPage() {
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
 
+  React.useEffect(() => {
+    document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
+  }, [formIsOpen]);
+
   const resetForm = () => {
     document.querySelector("form").reset();
-    const resetTotal = document.querySelectorAll(".reset");
-    resetTotal.forEach((el) => (el.value = 0));
+    document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
   };
 
   return (
@@ -45,14 +48,14 @@ export function RenderLostCitiesPage() {
       )}
       {/* TODO: //REPLACE */}
       <div style={{ display: "flex" }}>
-        <button onClick={() => setShowAddEntriesForm((state) => !state)}>
-          {showAddEntriesForm ? "Close form" : "Add entry"}
+        <button onClick={() => setFormIsOpen((state) => !state)}>
+          {formIsOpen ? "Close form" : "Add entry"}
         </button>
-        {showAddEntriesForm && <button onClick={resetForm}>reset form</button>}
+        {formIsOpen && <button onClick={resetForm}>reset form</button>}
       </div>
 
       {/***********  FORM */}
-      {showAddEntriesForm && (
+      {formIsOpen && (
         <>
           <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
             <div className="player-forms">

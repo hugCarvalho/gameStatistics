@@ -14,6 +14,7 @@ function PlayerForm({ player, matchesDatabase }) {
           id={`${player}-name`}
           name={`${player}-name`}
           type="text"
+          //required
         />
       </div>
 
@@ -21,15 +22,30 @@ function PlayerForm({ player, matchesDatabase }) {
       <div className="wrapper__rounds">
         <div className="wrapper__label-input">
           <label htmlFor={`${player}-round1`}>Round 1</label>
-          <input id={`${player}-round1`} name={`${player}-round1`} type="number" />
+          <input
+            id={`${player}-round1`}
+            name={`${player}-round1`}
+            type="number"
+            //required
+          />
         </div>
         <div className="wrapper__label-input">
           <label htmlFor={`${player}-round2`}>Round 2</label>
-          <input id={`${player}-round2`} name={`${player}-round2`} type="number" />
+          <input
+            id={`${player}-round2`}
+            name={`${player}-round2`}
+            type="number"
+            //required
+          />
         </div>
         <div className="wrapper__label-input">
           <label htmlFor={`${player}-round3`}>Round 3</label>
-          <input id={`${player}-round3`} name={`${player}-round3`} type="number" />
+          <input
+            id={`${player}-round3`}
+            name={`${player}-round3`}
+            type="number"
+            //required
+          />
         </div>
       </div>
 
