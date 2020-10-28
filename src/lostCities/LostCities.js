@@ -5,12 +5,42 @@ import localStorageGet, { localStorageSet } from "./localStorage";
 import Log from "./Log";
 import PlayerForm from "./PlayerForm";
 import "./LostCities.scss";
+import DisplayStatistics from "./DisplayStatistics";
 
 export const DatabaseContext = createContext();
 
+// const database = {
+//   games: [
+//     {
+//       id: +(Math.random() * 1000000).toFixed(0), //replace with UUID
+//       date: Date.now(),
+//       playerA: {
+//         name: "Player One",
+//         rounds: [10, 20, 30],
+//         total: 60,
+//       },
+//       playerB: {
+//         name: "Player Two",
+//         rounds: [10, 20, 5],
+//         total: 35,
+//       },
+//     },
+//   ],
+//   players: {
+//     joe: {
+//       results: ["W"],
+//       games: [],
+//       maxScore: 10,
+//       minScore: 1,
+//       winningStreak: 0,
+//       losingStreak: 0,
+//     },
+//   },
+// };
+
 const database = {
   games: [],
-  players: [],
+  players: {},
 };
 
 export function LostCities() {
@@ -24,7 +54,7 @@ export function LostCities() {
 
   //LOCAL STORAGE: SET
   React.useEffect(() => {
-    console.log("database:", matchesDatabase);
+    console.table("database:", matchesDatabase);
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
 
@@ -70,6 +100,7 @@ export function LostCities() {
           </form>
         </>
       )}
+      <DisplayStatistics matchesDatabase={matchesDatabase} />
       <DatabaseContext.Provider value={{ matchesDatabase, setMatchesDatabase }}>
         <Log />
       </DatabaseContext.Provider>
