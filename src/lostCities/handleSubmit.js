@@ -1,21 +1,36 @@
-const playerDetails = (playerName, match) => {};
+export const addDataToPlayerStats = (data, setMatchesDatabase) => {
+  const namePlayerA = data.games[0].playerA.name;
+  const namePlayerB = data.games[0].playerB.name;
+  // const { result } = data.games[0];
+  // const {results } = data.players[]
+  console.dir("HELP ME:", namePlayerA);
 
-let name = "whatever";
-
-const player = {
-  [name]: {
-    results: ["W", "D"],
-    games: [
-      {
-        //fixtures obj
+  setMatchesDatabase((state) => {
+    return {
+      ...state,
+      [namePlayerA]: {
+        results: [data.games[0].playerA.result],
+        games: [data.games[0]],
+        // gamesWon: gamesWon(data.players[namePlayerA].results),
+        // gamesLost: gamesLost(data.players[namePlayerA].results),
+        // gamesDrawn: gamesDrawn(data.players[namePlayerA].results),
       },
-    ],
-    maxScore: 0,
-    minScore: 0,
-    winningStreak: 0,
-    losingStreak: 0,
-  },
+    };
+  });
+  // if (!data.players[namePlayerA]) {
+  //   console.log("NO PREVIOUS PLAYER ");
+  //   });
 };
+
+// return {
+//   [data.players[playerA]]: {
+//   results: [...result, result],
+//   games: [...data.players[namePlayerA].games, match],
+//   gamesWon: gamesWon(data.players[namePlayerA].results),
+//   gamesLost: gamesLost(data.players[namePlayerA].results),
+//   gamesDrawn: gamesDrawn(data.players[namePlayerA].results),
+// },
+// [playerB]: {},}
 
 const addIfNewPlayer = (state, namePlayerA, namePlayerB) => {
   // const PlayerANameAlreadyExists = state.games.find((game) => {
@@ -49,94 +64,7 @@ const lastFixture = {
   },
 };
 
-const addPlayer = (state, playerA, playerB) => {
-  // console.log("PLAYERS STATE,", state);
-  let P1 = {},
-    playerBObj = {};
-
-  const outcome = "D";
-  // const maxScore = console.log("STATE", state, playerA);
-  // console.log("PLAYERS: ", state.players);
-
-  let result = [];
-
-  let lastGame = [];
-
-  if (!state.players[playerA]) {
-    // console.log("HELP", state);
-    P1 = {
-      [playerA]: {
-        // results: [...state.games.playerA.],
-        games: [state.games[0]],
-        maxScore: 0,
-        minScore: 0,
-        winningStreak: 0,
-        losingStreak: 0,
-      },
-    };
-  }
-  if (state.players[playerA]) {
-    // console.log("P1", state);
-    P1 = {
-      [playerA]: {
-        results: [...state.games.playerA],
-        games: [...state.games],
-        maxScore: 0,
-        minScore: 0,
-        winningStreak: 0,
-        losingStreak: 0,
-      },
-    };
-  }
-
-  // if (state.players[playerA]) result = [...state.players[playerA].results, outcome];
-  // if (state.players[playerB]) result = [...state.players[playerB].results, outcome];
-  // if (!state.players[playerA]) result = [outcome];
-  // if (!state.players[playerB]) result = [outcome];
-
-  // if (state.players[playerA]) lastGame = [...state.players[playerA].games, lastFixture];
-  // if (state.players[playerB]) lastGame = [...state.players[playerB].games, lastFixture];
-  // if (!state.players[playerA]) lastGame = [outcome];
-  // if (!state.players[playerB]) lastGame = [outcome];
-
-  // const P1 = {
-  //   [playerA]: {
-  //     results: result,
-  //     games: lastGame,
-  //     maxScore: 0,
-  //     minScore: 0,
-  //     winningStreak: 0,
-  //     losingStreak: 0,
-  //   },
-  // };
-
-  const P2 = {
-    [playerB]: {
-      results: ["W", "D"],
-      games: [
-        {
-          //fixtures obj
-        },
-      ],
-      maxScore: 0,
-      minScore: 0,
-      winningStreak: 0,
-      losingStreak: 0,
-    },
-  };
-
-  return {
-    ...state.players,
-    ...P1,
-    ...P2,
-  };
-};
-
-function calculateMatchResult(state) {
-  // console.log("HELP ", state);
-}
-
-const handleSubmit = (e, setMatchesDatabase) => {
+const handleSubmit = (e, setMatchesDatabase, database) => {
   e.preventDefault();
   const { namePlayerA, round1, round2, round3 } = {
     namePlayerA: e.target.elements["playerA-name"].value,
@@ -163,34 +91,117 @@ const handleSubmit = (e, setMatchesDatabase) => {
 
   // console.log(playerB, playerB.round1);
 
+  const match = {
+    id: +(Math.random() * 1000000).toFixed(0), //replace with UUID
+    date: Date.now(),
+    playerA: {
+      name: namePlayerA,
+      rounds: [+round1, +round2, +round3],
+      total: totalPlayerA,
+      result: resultPlayerA,
+    },
+    playerB: {
+      name: playerB.name,
+      rounds: [playerB.round1, playerB.round2, playerB.round3],
+      total: totalPlayerB,
+      result: resultPlayerB,
+    },
+  };
+  const gamesWon = (results) => results.filter((item) => item === "W").length;
+  const gamesLost = (results) => results.filter((item) => item === "L").length;
+  const gamesDrawn = (results) => results.filter((item) => item === "D").length;
+
+  // ADD PLAYER
+  const calcMaxScore = (database, namePlayer) => {
+    const { games } = database;
+
+    console.log("MAX", games);
+  };
+
   setMatchesDatabase((state) => {
+    const { players } = state;
+    console.log("RES", players);
     return {
       ...state,
-      games: [
-        ...state.games,
-        {
-          id: +(Math.random() * 1000000).toFixed(0), //replace with UUID
-          date: Date.now(),
-          playerA: {
-            name: namePlayerA,
-            rounds: [+round1, +round2, +round3],
-            total: totalPlayerA,
-            result: resultPlayerA,
-          },
-          playerB: {
-            name: playerB.name,
-            rounds: [playerB.round1, playerB.round2, playerB.round3],
-            total: totalPlayerB,
-            result: resultPlayerB,
-          },
-        },
-      ],
+      games: [...state.games, match],
       // players: addIfNewPlayer(state, namePlayerA, playerB.name),
-      players: addPlayer(state, namePlayerA, playerB.name),
+      players: {
+        ...state.players,
+        [match.playerA.name]: {
+          // results: [...(state.players[namePlayerA], resultPlayerA || resultPlayerA)],
+          results: [
+            ...(state.players[namePlayerA] ? state.players[namePlayerA].results : []),
+            resultPlayerA,
+          ],
+          games: [
+            ...(state.players[namePlayerA] ? state.players[namePlayerA].games : []),
+            match,
+          ],
+          maxScore: players[namePlayerA]
+            ? calcMaxScore(state, [namePlayerA])
+            : totalPlayerA,
+        },
+      },
     };
   });
 
   // document.querySelector("form").reset();
+};
+
+const addPlayer = (state, playerA, playerB, resultPlayerA, resultPlayerB, match) => {
+  // console.log("PLAYERS STATE,", state);
+  let P1 = {};
+  // P2 = {};
+
+  // if (!state.players[playerA]) {
+  //   console.log("HELP", state);
+
+  //   P1 = {
+  //     [playerA]: {
+  //       results: [...state.games.playerA.result],
+  //       games: [state.games[0]],
+  //       maxScore: 0,
+  //       minScore: 0,
+  //       winningStreak: 0,
+  //       losingStreak: 0,
+  //     },
+  //   };
+  // }
+  // if (state.players[playerA]) {
+  //   console.log("HELP2", state);
+  // }
+  console.log("HELP", state);
+  P1 = {
+    [playerA]: {
+      results: [...resultPlayerA],
+      games: [match],
+      maxScore: 0,
+      minScore: 0,
+      winningStreak: 0,
+      losingStreak: 0,
+    },
+  };
+
+  const P2 = {
+    [playerB]: {
+      results: ["W", "D"],
+      games: [
+        {
+          //fixtures obj
+        },
+      ],
+      maxScore: 0,
+      minScore: 0,
+      winningStreak: 0,
+      losingStreak: 0,
+    },
+  };
+
+  return {
+    ...state.players,
+    ...P1,
+    ...P2,
+  };
 };
 
 export default handleSubmit;

@@ -6,9 +6,10 @@ import Log from "./Log";
 import PlayerForm from "./PlayerForm";
 import "./LostCities.scss";
 import DisplayStatistics from "./DisplayStatistics";
+import { addDataToPlayerStats } from "../lostCities/handleSubmit";
 
 export const DatabaseContext = createContext();
-
+//Mocking purpose
 // const database = {
 //   games: [
 //     {
@@ -37,10 +38,15 @@ export const DatabaseContext = createContext();
 //     },
 //   },
 // };
-
 const database = {
   games: [],
-  players: {},
+  players: {
+    // aa: {
+    //   results: [],
+    //   games: [],
+    //   gamesWon: 0,
+    // },
+  },
 };
 
 export function LostCities() {
@@ -57,6 +63,14 @@ export function LostCities() {
     console.table("database:", matchesDatabase);
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
+
+  React.useEffect(() => {
+    // console.table("ONE TIMER:", matchesDatabase);
+    // if (matchesDatabase.games.length > 0) {
+    //   console.log("RUNS IF DATABASE HAS ENTRIES");
+    //   addDataToPlayerStats(matchesDatabase, setMatchesDatabase);
+    // }
+  }, []);
 
   React.useEffect(() => {
     document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
