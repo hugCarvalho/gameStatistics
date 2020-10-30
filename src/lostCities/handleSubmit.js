@@ -64,7 +64,7 @@ const lastFixture = {
   },
 };
 
-const handleSubmit = (e, setMatchesDatabase, database) => {
+const handleSubmit = (e, setMatchesDatabase) => {
   e.preventDefault();
   const { namePlayerA, round1, round2, round3 } = {
     namePlayerA: e.target.elements["playerA-name"].value,
@@ -87,7 +87,7 @@ const handleSubmit = (e, setMatchesDatabase, database) => {
     return totalPlayerA > totalPlayerB ? "W" : totalPlayerA < totalPlayerB ? "L" : "D";
   };
   const resultPlayerA = calcResultPlayerA();
-  const resultPlayerB = resultPlayerA === "W" ? "L" : resultPlayerA === "D" ? "W" : "D";
+  const resultPlayerB = resultPlayerA === "W" ? "L" : resultPlayerA === "L" ? "W" : "D";
 
   // console.log(playerB, playerB.round1);
 
@@ -122,6 +122,17 @@ const handleSubmit = (e, setMatchesDatabase, database) => {
     });
     return Math.max(...totalScores);
   };
+  const calcMinScore = (database, lastMatch, namePlayer) => {
+    console.log("MIN");
+    const updatedDatabase = { ...database, games: [...database.games, lastMatch] };
+    const totalScores = updatedDatabase.games.map((match) => {
+      const { playerA, playerB } = match;
+      if (playerA.name === namePlayer) return playerA.total;
+      else if (playerB.name === namePlayer) return playerB.total;
+      else throw Error("an Error has ocurred");
+    });
+    return Math.min(...totalScores);
+  };
 
   setMatchesDatabase((state) => {
     const { players } = state;
@@ -146,68 +157,31 @@ const handleSubmit = (e, setMatchesDatabase, database) => {
           maxScore: players[namePlayerA]
             ? calcMaxScore(state, match, namePlayerA)
             : totalPlayerA,
+          minScore: players[namePlayerA]
+            ? calcMinScore(state, match, namePlayerA)
+            : totalPlayerA,
+        },
+        [match.playerB.name]: {
+          results: [
+            ...(state.players[playerB.name] ? state.players[playerB.name].results : []),
+            resultPlayerB,
+          ],
+          games: [
+            ...(state.players[playerB.name] ? state.players[playerB.name].games : []),
+            match,
+          ],
+          maxScore: players[playerB.name]
+            ? calcMaxScore(state, match, playerB.name)
+            : totalPlayerB,
+          minScore: players[playerB.name]
+            ? calcMinScore(state, match, playerB.name)
+            : totalPlayerB,
         },
       },
     };
   });
 
   // document.querySelector("form").reset();
-};
-
-const addPlayer = (state, playerA, playerB, resultPlayerA, resultPlayerB, match) => {
-  // console.log("PLAYERS STATE,", state);
-  let P1 = {};
-  // P2 = {};
-
-  // if (!state.players[playerA]) {
-  //   console.log("HELP", state);
-
-  //   P1 = {
-  //     [playerA]: {
-  //       results: [...state.games.playerA.result],
-  //       games: [state.games[0]],
-  //       maxScore: 0,
-  //       minScore: 0,
-  //       winningStreak: 0,
-  //       losingStreak: 0,
-  //     },
-  //   };
-  // }
-  // if (state.players[playerA]) {
-  //   console.log("HELP2", state);
-  // }
-  console.log("HELP", state);
-  P1 = {
-    [playerA]: {
-      results: [...resultPlayerA],
-      games: [match],
-      maxScore: 0,
-      minScore: 0,
-      winningStreak: 0,
-      losingStreak: 0,
-    },
-  };
-
-  const P2 = {
-    [playerB]: {
-      results: ["W", "D"],
-      games: [
-        {
-          //fixtures obj
-        },
-      ],
-      maxScore: 0,
-      minScore: 0,
-      winningStreak: 0,
-      losingStreak: 0,
-    },
-  };
-
-  return {
-    ...state.players,
-    ...P1,
-    ...P2,
-  };
 };
 
 export default handleSubmit;
