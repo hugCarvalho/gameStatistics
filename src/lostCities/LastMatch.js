@@ -1,11 +1,11 @@
 import React from "react";
 import formatDate from "./formatDate";
-import "./LastFixture.scss";
+import "./LastMatch.scss";
 
-function LastFixture({ matchesDatabase }) {
+function LastMatch({ matchesDatabase }) {
   return (
-    <section className="LastFixture">
-      <h2>Last Fixture</h2>
+    <section className="LastMatch">
+      <h2>Previous Match</h2>
       <time>Date: {matchesDatabase.games[0].date && formatDate(matchesDatabase)}</time>
       <table className="greenTable">
         <thead>
@@ -78,4 +78,4 @@ function LastFixture({ matchesDatabase }) {
   );
 }
 
-export default LastFixture;
+export default LastMatch;

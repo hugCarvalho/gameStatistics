@@ -1,11 +1,15 @@
-.LastFixture {
+.LastMatch {
   // background-color: aquamarine;
   margin: auto;
   min-width: 70%;
   // width: 100%;
   padding: 5px 5px 15px 5px;
+  h2 {
+    font-size: inherit;
+  }
 
   table.greenTable {
+    color: black;
     font-family: Georgia, serif;
     border: 6px solid #24943a;
     background-color: #d4eed1;

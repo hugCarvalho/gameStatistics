@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import "./LostCities.scss";
-import LastFixture from "./LastFixture";
+import LastMatch from "./LastMatch";
 import Log from "./Log";
 import PlayerForm from "./PlayerForm";
 import DisplayStatistics from "./DisplayStatistics";
@@ -44,7 +44,7 @@ const initDatabase = {
 
 export function LostCities() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(initDatabase);
-  const [formIsOpen, setFormIsOpen] = React.useState(false);
+  const [formIsOpen, setFormIsOpen] = React.useState(true);
 
   //LOCAL STORAGE: GET
   React.useEffect(() => {
@@ -71,7 +71,7 @@ export function LostCities() {
       <h1>Lost Cities</h1>
       {/* RENDER LAST RESULT */}
       {matchesDatabase.games.length ? (
-        <LastFixture matchesDatabase={matchesDatabase} />
+        <LastMatch matchesDatabase={matchesDatabase} />
       ) : (
         <h3>There are no games recorded yet. Why don't you add an entry? </h3>
       )}

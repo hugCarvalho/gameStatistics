@@ -14,7 +14,7 @@ function PlayerForm({ player, matchesDatabase }) {
           id={`${player}-name`}
           name={`${player}-name`}
           type="text"
-          //required
+          required
         />
       </div>
 
