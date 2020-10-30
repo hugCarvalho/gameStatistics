@@ -1,25 +1,28 @@
-.Form {
-  // background-color: beige;
-  border-radius: 20px;
-  padding-bottom: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  background-image: url("../lostCities/lostCities.jpg");
-  background-size: cover;
-
-  .player-forms {
+.LostCities {
+  // text-align: left;
+  .form {
+    // background-color: beige;
+    border-radius: 20px;
+    padding-bottom: 20px;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     flex-wrap: wrap;
-  }
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    // background-image: url("../lostCities/lostCities.jpg");
+    // background-size: cover;
 
-  .btn-submit {
-    // background-color: green;
-    width: 310px;
+    .player-forms {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit {
+      // background-color: green;
+      width: 310px;
+    }
   }
 }

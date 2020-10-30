@@ -1,12 +1,12 @@
 import React from "react";
-import "./PlayersStats.scss";
-import PlayerStats from "../../reusableComp/PlayerStats";
+import "./RenderPlayersStats.scss";
+import PlayerStatsCalc from "../../reusableComp/PlayerStatsCalc";
 import PlayerWinLostChart from "./charts/PlayerWinLostChart";
 import PlayerTeamsPieChart from "./charts/PlayerTeamsPieChart";
 
-function PlayersStats() {
+function RenderPlayersStats() {
   return (
-    <div className="PlayersStats">
+    <div className="RenderPlayersStats">
       <h2>Player Statistics</h2>
       <div className="wrapper__table-legend--player-data">
         <section className="table-legend">
@@ -25,8 +25,8 @@ function PlayersStats() {
         </section>
 
         <section className="wrapper__player-stats">
-          <PlayerStats playerName="Hugo" />
-          <PlayerStats playerName="Eddie" />
+          <PlayerStatsCalc playerName="Hugo" />
+          <PlayerStatsCalc playerName="Eddie" />
         </section>
       </div>
 
@@ -41,4 +41,4 @@ function PlayersStats() {
   );
 }
 
-export default PlayersStats;
+export default RenderPlayersStats;

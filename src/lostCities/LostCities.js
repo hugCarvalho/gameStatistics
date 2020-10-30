@@ -1,12 +1,11 @@
-import React, { Children, createContext } from "react";
-import handleSubmit from "./handleSubmit";
+import React, { createContext } from "react";
+import "./LostCities.scss";
 import LastFixture from "./LastFixture";
-import localStorageGet, { localStorageSet } from "./localStorage";
 import Log from "./Log";
 import PlayerForm from "./PlayerForm";
-import "./LostCities.scss";
 import DisplayStatistics from "./DisplayStatistics";
-import { addDataToPlayerStats } from "../lostCities/handleSubmit";
+import handleSubmit from "./handleSubmit";
+import localStorageGet, { localStorageSet } from "./localStorage";
 
 export const DatabaseContext = createContext();
 //Mocking purpose
@@ -38,19 +37,13 @@ export const DatabaseContext = createContext();
 //     },
 //   },
 // };
-const database = {
+const initDatabase = {
   games: [],
-  players: {
-    // aa: {
-    //   results: [],
-    //   games: [],
-    //   gamesWon: 0,
-    // },
-  },
+  players: {},
 };
 
 export function LostCities() {
-  const [matchesDatabase, setMatchesDatabase] = React.useState(database);
+  const [matchesDatabase, setMatchesDatabase] = React.useState(initDatabase);
   const [formIsOpen, setFormIsOpen] = React.useState(false);
 
   //LOCAL STORAGE: GET
@@ -60,25 +53,9 @@ export function LostCities() {
 
   //LOCAL STORAGE: SET
   React.useEffect(() => {
-    // console.table("database:", matchesDatabase.games);
     console.log("database:", matchesDatabase);
-    // console.info("database", matchesDatabase)
-    // console.group("database", matchesDatabase)
-    // console.dir("database", matchesDatabase)
-    // console.count("database", matchesDatabase);
-    // console.debug("database", matchesDatabase);
-    // console.dir("database", matchesDatabase);
-
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
-
-  React.useEffect(() => {
-    // console.table("ONE TIMER:", matchesDatabase);
-    // if (matchesDatabase.games.length > 0) {
-    //   console.log("RUNS IF DATABASE HAS ENTRIES");
-    //   addDataToPlayerStats(matchesDatabase, setMatchesDatabase);
-    // }
-  }, []);
 
   React.useEffect(() => {
     document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
@@ -90,7 +67,7 @@ export function LostCities() {
   };
 
   return (
-    <>
+    <div className="LostCities">
       <h1>Lost Cities</h1>
       {/* RENDER LAST RESULT */}
       {matchesDatabase.games.length ? (
@@ -99,7 +76,7 @@ export function LostCities() {
         <h3>There are no games recorded yet. Why don't you add an entry? </h3>
       )}
       {/* TODO: //REPLACE */}
-      <div style={{ display: "flex" }}>
+      <div>
         <button onClick={() => setFormIsOpen((state) => !state)}>
           {formIsOpen ? "Close form" : "Add entry"}
         </button>
@@ -109,16 +86,15 @@ export function LostCities() {
       {/***********  FORM */}
       {formIsOpen && (
         <>
-          <form className="Form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
+          <form className="form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
             <div className="player-forms">
               <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
               <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />
             </div>
-            <div>
-              <button className="btn-submit" type="submit">
-                Submit
-              </button>
-            </div>
+
+            <button className="btn-submit" type="submit">
+              Submit
+            </button>
           </form>
         </>
       )}
@@ -126,7 +102,7 @@ export function LostCities() {
       <DatabaseContext.Provider value={{ matchesDatabase, setMatchesDatabase }}>
         <Log />
       </DatabaseContext.Provider>
-    </>
+    </div>
   );
 }
 

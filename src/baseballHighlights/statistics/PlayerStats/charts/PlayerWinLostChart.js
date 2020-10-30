@@ -1,7 +1,7 @@
 import React from "react";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import matchReport from "../../../data/matchReports";
-import { numOfGamesPlayedByPlayer, numOfVictories } from "../PlayersStatsFn";
+import { numOfGamesPlayedByPlayer, numOfVictories } from "../fns/PlayersStatsFn";
 
 //TODO: make dynamic
 

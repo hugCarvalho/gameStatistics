@@ -1,6 +1,7 @@
 import React from "react";
-import "./PlayerStats.scss";
+import "./PlayerStatsCalc.scss";
 import matchReport from "../data/matchReports";
+
 import {
   numOfGamesPlayedByPlayer,
   numOfVictories,
@@ -11,12 +12,12 @@ import {
   biggestWin,
   biggestDefeat,
   teamStatsPerPlayer,
-} from "../statistics/PlayerStats/PlayersStatsFn";
+} from "../statistics/PlayerStats/fns/PlayersStatsFn";
 
-function PlayerStats({ playerName }) {
+function PlayerStatsCalc({ playerName }) {
   const team = teamStatsPerPlayer(matchReport, playerName);
   return (
-    <div className="PlayerStats">
+    <div className="PlayerStatsCalc">
       <div className="player-name">{playerName}</div>
       <div className="wrapper__sections">
         <section className="player-stats">
@@ -61,4 +62,4 @@ function PlayerStats({ playerName }) {
   );
 }
 
-export default PlayerStats;
+export default PlayerStatsCalc;

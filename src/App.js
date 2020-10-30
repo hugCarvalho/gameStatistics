@@ -1,23 +1,21 @@
 import React from "react";
 import "./App.scss";
-// import LastFixture from "./LastFixture/LastFixture";
-// import TeamTable from "./statistics/TeamStats/TeamsTable";
-// import PlayersStats from "./statistics/PlayerStats/PlayersStats";
-// import matchReports from "./data/matchReports";
-import { lostCities } from "./data/lostCities";
+import LastMatch from "./baseballHighlights/LastMatch/LastMatch";
+import RenderTeamsTable from "./baseballHighlights/statistics/TeamStats/RenderTeamsTable";
+import RenderPlayersStats from "./baseballHighlights/statistics/PlayerStats/RenderPlayersStats";
+import matchReports from "./baseballHighlights/data/matchReports";
 import { LostCities } from "./lostCities/LostCities";
 
 function App() {
   return (
     <div className="App">
-      {/* <LastFixture matchReports={matchReports} />
-      <main>
-        <TeamTable />
-        <PlayersStats />
-      </main>
-      <a href="https://www.counters-free.net/">https://www.counters-free.net</a>{" "} */}
-
       <LostCities />
+      <LastMatch matchReports={matchReports} />
+      <main>
+        <RenderTeamsTable />
+        <RenderPlayersStats />
+      </main>
+      <a href="https://www.counters-free.net/">https://www.counters-free.net</a>{" "}
     </div>
   );
 }

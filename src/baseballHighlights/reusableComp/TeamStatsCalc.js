@@ -1,5 +1,5 @@
 import React from "react";
-import "./TeamStats.scss";
+import "./TeamStatsCalc.scss";
 import matchesReport from "../data/matchReports";
 import {
   numOfGamesEachTeam,
@@ -9,11 +9,11 @@ import {
   teamStreaksAndLast5Results,
   biggestWin,
   biggestDefeat,
-} from "../statistics/TeamStats/teamsTableFn";
+} from "../statistics/TeamStats/teamsTableFns/teamsTableFns";
 
-function TeamStats({ name }) {
+function TeamStatsCalc({ name }) {
   return (
-    <div className="TeamStats">
+    <div className="TeamStatsCalc">
       <div className="items ">{name}</div>
       <div className="items ">{numOfGamesEachTeam(matchesReport, name)}</div>
       <div className="items ">{numOfWinsEachTeam(matchesReport, name)}</div>
@@ -35,4 +35,4 @@ function TeamStats({ name }) {
   );
 }
 
-export default TeamStats;
+export default TeamStatsCalc;

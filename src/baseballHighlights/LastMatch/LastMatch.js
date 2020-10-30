@@ -1,13 +1,12 @@
 import React from "react";
-import "./LastFixture.scss";
+import "./LastMatch.scss";
 import PropTypes from "prop-types";
-// import teamStats from "./stats/statsTeams";
 
-function LastFixture({ matchReports = [] }) {
+function LastMatch({ matchReports = [] }) {
   const lastMatch = matchReports[matchReports.length - 1];
 
   return (
-    <header className="App-header">
+    <header className="LastMatch">
       <h1>Baseball Highlights Statistics</h1>
 
       {matchReports.length === 0 ? (
@@ -15,7 +14,7 @@ function LastFixture({ matchReports = [] }) {
       ) : (
         <>
           <h3>
-            Last fixture: <time dateTime="2020-08-30">{lastMatch.date}</time>
+            Last game: <time dateTime="2020-08-30">{lastMatch.date}</time>
           </h3>
           <section>
             <div className="wrapper__all">
@@ -38,11 +37,11 @@ function LastFixture({ matchReports = [] }) {
   );
 }
 
-LastFixture.propTypes = {
+LastMatch.propTypes = {
   matchReports: PropTypes.array,
 };
-LastFixture.defaultProps = {
+LastMatch.defaultProps = {
   matchReports: [],
 };
 
-export default LastFixture;
+export default LastMatch;

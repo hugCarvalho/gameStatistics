@@ -1,5 +1,3 @@
-import matchReport from "../../data/matchReports";
-
 //Total games
 export const numOfGamesPlayedByPlayer = (matchResults, name) => {
   const playerAppearances = {};
@@ -74,12 +72,10 @@ export const calcPlayerStreaks = (resultLast5Games, gameResultType) => {
 //Biggest Win
 export const biggestWin = (matchReport, gameResultType, player) => {
   const allVictories = matchReport.filter((game) => {
-    if (game.playerA.won && game.playerA.name === player) {
-      return game;
-    }
-    if (game.playerB.won && game.playerB.name === player) {
-      return game;
-    }
+    return (
+      (game.playerA.won && game.playerA.name === player) ||
+      (game.playerB.won && game.playerB.name === player)
+    );
   });
   // console.log("allVictories", allVictories);
   const opponentScores = allVictories.map((game) => {
@@ -95,8 +91,10 @@ export const biggestWin = (matchReport, gameResultType, player) => {
 //Biggest Defeat
 export const biggestDefeat = (matchReport, gameResultType, player) => {
   const allDefeats = matchReport.filter((game) => {
-    if (!game.playerA.won && game.playerA.name === player) return game;
-    if (!game.playerB.won && game.playerB.name === player) return game;
+    return (
+      (!game.playerA.won && game.playerA.name === player) ||
+      (!game.playerB.won && game.playerB.name === player)
+    );
   });
 
   const playerScores = allDefeats.map((game) => {
@@ -114,8 +112,9 @@ export const biggestDefeat = (matchReport, gameResultType, player) => {
 export const teamStatsPerPlayer = (matchReport, player) => {
   const allGamesPlayer = matchReport.map((game) => {
     if (game.playerA.name === player) return game.playerA;
-    if (game.playerB.name === player) return game.playerB;
+    else return game.playerB;
   });
+  console.log("allGamesPlayer", allGamesPlayer);
   let obj = {
     Boston: { played: 0, won: 0, lost: 0 },
     "Los Angeles": { played: 0, won: 0, lost: 0 },

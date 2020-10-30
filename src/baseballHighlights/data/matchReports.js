@@ -1,4 +1,4 @@
-const matchReport = [
+const matchReports = [
   {
     id: 1,
     date: "06-07-17",
@@ -193,4 +193,4 @@ const matchReport = [
   },
 ];
 
-export default matchReport;
+export default matchReports;

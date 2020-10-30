@@ -79,7 +79,6 @@ export const teamStreaksAndLast5Results = (matchReport, matchResult, team) => {
     //A streak starts counting after 2 consecutive wins
     if (res !== gameResults[0]) break;
     if (res === matchResult) teamStreak += 1;
-    // console.log(team, teamStreak);
   }
 
   gameResults = gameResults.length > 5 ? gameResults.slice(0, 5) : gameResults;

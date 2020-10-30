@@ -1,8 +1,8 @@
 import React from "react";
-import "./TeamsCharts.scss";
+import "./TeamsChartWinsAndLossesPercentage.scss";
 import { Bar } from "react-chartjs-2";
-import gameInfo from "../GameInfo/GameInfo";
-import { percentagesWinsAndLosses } from "./teamsTableFn";
+import gameInfo from "../../data/gameInfo";
+import { percentagesWinsAndLosses } from "./teamsTableFns/teamsTableFns";
 import matchReport from "../../data/matchReports";
 
 const chartsDataObj = {

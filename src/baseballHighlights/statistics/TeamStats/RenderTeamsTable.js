@@ -1,15 +1,17 @@
 import React from "react";
-import "./TeamsTable.scss";
-import { gameInfo } from "../GameInfo/GameInfo";
+import "./RenderTeamsTable.scss";
+import { gameInfo } from "../../data/gameInfo";
 
-import TeamStats from "../../reusableComp/TeamStats";
-import TeamsChartWinsAndLossesPercentage from "./TeamsCharts";
+import TeamStatsCalc from "../../reusableComp/TeamStatsCalc";
+
+// import TeamStats from "../TeamStats/"
+import TeamsChartWinsAndLossesPercentage from "./TeamsChartWinsAndLossesPercentage";
 
 //TODO: add styling
 
-function TeamTable() {
+function RenderTeamsTable() {
   return (
-    <section className="TeamStatistics">
+    <section className="RenderTeamsTable">
       <h2>Team Statistics</h2>
       <section className="wrapper-one">
         <div className="team-table">
@@ -28,7 +30,7 @@ function TeamTable() {
           </section>
 
           {gameInfo.teams.map((name, i) => {
-            return <TeamStats name={name} key={i} />;
+            return <TeamStatsCalc name={name} key={i} />;
           })}
         </div>
 
@@ -40,4 +42,4 @@ function TeamTable() {
   );
 }
 
-export default TeamTable;
+export default RenderTeamsTable;

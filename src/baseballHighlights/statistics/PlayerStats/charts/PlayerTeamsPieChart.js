@@ -1,7 +1,7 @@
 import React from "react";
 import "./PlayerTeamsPieChart.scss";
 import { Pie } from "react-chartjs-2";
-import { teamStatsPerPlayer } from "../PlayersStatsFn";
+import { teamStatsPerPlayer } from "../fns/PlayersStatsFn";
 import matchReport from "../../../data/matchReports";
 
 //TODO: improve dynamic content

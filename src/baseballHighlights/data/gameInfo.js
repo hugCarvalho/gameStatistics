@@ -7,5 +7,3 @@ export const gameInfo = {
 };
 
 export default gameInfo;
-
-// , "San Francisco", "New York", "Los Angeles"
