@@ -112,15 +112,21 @@ const handleSubmit = (e, setMatchesDatabase, database) => {
   const gamesDrawn = (results) => results.filter((item) => item === "D").length;
 
   // ADD PLAYER
-  const calcMaxScore = (database, namePlayer) => {
-    const { games } = database;
-
-    console.log("MAX", games);
+  const calcMaxScore = (database, lastMatch, namePlayer) => {
+    const updatedDatabase = { ...database, games: [...database.games, lastMatch] };
+    const totalScores = updatedDatabase.games.map((match) => {
+      const { playerA, playerB } = match;
+      if (playerA.name === namePlayer) return playerA.total;
+      else if (playerB.name === namePlayer) return playerB.total;
+      else throw Error("an Error has ocurred");
+    });
+    return Math.max(...totalScores);
   };
 
   setMatchesDatabase((state) => {
     const { players } = state;
-    console.log("RES", players);
+    // console.log("RES", players);
+
     return {
       ...state,
       games: [...state.games, match],
@@ -138,7 +144,7 @@ const handleSubmit = (e, setMatchesDatabase, database) => {
             match,
           ],
           maxScore: players[namePlayerA]
-            ? calcMaxScore(state, [namePlayerA])
+            ? calcMaxScore(state, match, namePlayerA)
             : totalPlayerA,
         },
       },

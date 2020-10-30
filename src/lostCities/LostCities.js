@@ -60,7 +60,15 @@ export function LostCities() {
 
   //LOCAL STORAGE: SET
   React.useEffect(() => {
-    console.table("database:", matchesDatabase);
+    // console.table("database:", matchesDatabase.games);
+    console.log("database:", matchesDatabase);
+    // console.info("database", matchesDatabase)
+    // console.group("database", matchesDatabase)
+    // console.dir("database", matchesDatabase)
+    // console.count("database", matchesDatabase);
+    // console.debug("database", matchesDatabase);
+    // console.dir("database", matchesDatabase);
+
     localStorageSet(matchesDatabase);
   }, [matchesDatabase]);
 
