@@ -1,41 +1,45 @@
 import React from "react";
 
-const matchesDatabase = {
-  players: {
-    hugo: {
-      score: 100,
-    },
-    pepe: {
-      score: 20,
-    },
-  },
-};
-
 function DisplayStatistics({ matchesDatabase }) {
   const [playerName, setPlayerName] = React.useState("");
   const [playerResults, setPlayerResults] = React.useState({});
+  const [playerScores, setPlayerScores] = React.useState({});
 
-  const allPlayers = Object.keys(matchesDatabase.players);
   const { games, players } = matchesDatabase;
+  const allPlayers = Object.keys(matchesDatabase.players);
 
   React.useEffect(() => {
-    const makeResultsObj = (playerName) => {
-      console.log("MAKE RESULT");
-      const resultsArr = matchesDatabase.players[playerName].results;
+    const createResultsObj = (playerName) => {
+      // console.log("Create RESULTSOBJ");
+      const resultsArr = players[playerName].results;
       let resultsObj = { wins: 0, losses: 0, draws: 0 };
       for (let result of resultsArr) {
         if (result === "W") resultsObj.wins += 1;
         if (result === "D") resultsObj.draws += 1;
         if (result === "L") resultsObj.losses += 1;
       }
-      console.log(resultsObj);
       setPlayerResults(resultsObj);
     };
+
+    const calcDataRelatedToScores = (playerName) => {
+      let totalScores = [];
+
+      for (let game of games) {
+        if (game.playerA.name === playerName) totalScores.push(game.playerA.total);
+        if (game.playerB.name === playerName) totalScores.push(game.playerB.total);
+      }
+      setPlayerScores({
+        maxScore: Math.max(...totalScores),
+        minScore: Math.min(...totalScores),
+      });
+    };
+
     console.log("CALC OBJ");
     if (playerName) {
-      makeResultsObj(playerName);
+      createResultsObj(playerName);
+      calcDataRelatedToScores(playerName);
     }
-  }, [playerName, setPlayerResults, matchesDatabase]);
+  }, [playerName, setPlayerResults, games, players]);
 
   return (
     <div>
@@ -43,7 +47,7 @@ function DisplayStatistics({ matchesDatabase }) {
       <form onChange={(e) => setPlayerName(e.target.value)}>
         <label htmlFor="player">Choose a player:</label>
         <select name="player" id="player">
-          <option name="empty"> -----</option>
+          <option name="empty"> </option>
           {allPlayers.map((name, i) => {
             return (
               <option key={i} value={name}>
@@ -61,16 +65,10 @@ function DisplayStatistics({ matchesDatabase }) {
           : " ---"}{" "}
       </div>
       <div className="items item--2">
-        Biggest Score:{" "}
-        {matchesDatabase.players[playerName]
-          ? matchesDatabase.players[playerName].maxScore
-          : " ---"}
+        Biggest Score: {players[playerName] ? playerScores.maxScore : " ---"}
       </div>
       <div className="items item--3">
-        Lowest Score:{" "}
-        {matchesDatabase.players[playerName]
-          ? matchesDatabase.players[playerName].minScore
-          : " ---"}
+        Lowest Score: {players[playerName] ? playerScores.minScore : " ---"}
       </div>
       <div className="items item--4">
         WINS:
