@@ -1,13 +1,14 @@
-export default function localStorageGet(getDatabase) {
+export default function localStorageGet() {
+  // console.log("LOCALSTORAGE");
   try {
     if (localStorage.LostCitiesDatabase) {
-      getDatabase(JSON.parse(localStorage.getItem("LostCitiesDatabase")));
+      return JSON.parse(localStorage.getItem("LostCitiesDatabase"));
     }
   } catch (err) {
     throw new Error("Local storage error");
   }
 }
 
-export function localStorageSet(database) {
+export function saveInLocalStorage(database) {
   return localStorage.setItem("LostCitiesDatabase", JSON.stringify(database));
 }

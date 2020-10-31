@@ -114,7 +114,7 @@ export const teamStatsPerPlayer = (matchReport, player) => {
     if (game.playerA.name === player) return game.playerA;
     else return game.playerB;
   });
-  console.log("allGamesPlayer", allGamesPlayer);
+  // console.log("allGamesPlayer", allGamesPlayer);
   let obj = {
     Boston: { played: 0, won: 0, lost: 0 },
     "Los Angeles": { played: 0, won: 0, lost: 0 },

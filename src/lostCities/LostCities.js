@@ -5,7 +5,7 @@ import Log from "./Log";
 import PlayerForm from "./PlayerForm";
 import DisplayStatistics from "./DisplayStatistics";
 import handleSubmit from "./handleSubmit";
-import localStorageGet, { localStorageSet } from "./localStorage";
+import getFromLocalStorage, { saveInLocalStorage } from "./fns/localStorage";
 
 export const DatabaseContext = createContext();
 //Mocking purpose
@@ -43,18 +43,15 @@ const initDatabase = {
 };
 
 export function LostCities() {
-  const [matchesDatabase, setMatchesDatabase] = React.useState(initDatabase);
+  const [matchesDatabase, setMatchesDatabase] = React.useState(
+    () => getFromLocalStorage() || initDatabase
+  );
   const [formIsOpen, setFormIsOpen] = React.useState(true);
-
-  //LOCAL STORAGE: GET
-  React.useEffect(() => {
-    localStorageGet(setMatchesDatabase);
-  }, []);
 
   //LOCAL STORAGE: SET
   React.useEffect(() => {
     console.log("database:", matchesDatabase);
-    localStorageSet(matchesDatabase);
+    saveInLocalStorage(matchesDatabase);
   }, [matchesDatabase]);
 
   React.useEffect(() => {
