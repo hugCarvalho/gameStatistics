@@ -8,17 +8,29 @@ function setLogEntryColor(index) {
 
 function Log() {
   const { matchesDatabase, setMatchesDatabase } = React.useContext(DatabaseContext);
-  const { games } = matchesDatabase;
+  const { games, players } = matchesDatabase;
 
   const deleteEntry = (id) => {
-    console.log("clicked", matchesDatabase);
-    const newDatabase = games.filter((entry) => entry.id !== id);
+    console.log("delete", matchesDatabase);
+
+    // const updatedPlayers = players.filter(entry => {})
     setMatchesDatabase((state) => {
+      const updatedDatabaseGames = games.filter((entry) => entry.id !== id);
       return {
         ...state,
-        games: newDatabase,
+        games: updatedDatabaseGames,
+        players: Object.keys(players).reduce((acc, player) => {
+          players[player].games = players[player].games.filter(
+            (entry) => entry.id !== id
+          );
+          if (players[player].games.length) {
+            return { ...acc, [player]: players[player] };
+          }
+          return acc;
+        }, {}),
       };
     });
+    console.log("delete II", matchesDatabase);
   };
 
   return (

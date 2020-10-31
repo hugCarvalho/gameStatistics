@@ -4,15 +4,26 @@ function DisplayStatistics({ matchesDatabase }) {
   const [playerName, setPlayerName] = React.useState("");
   const [playerResults, setPlayerResults] = React.useState({});
   const [playerScores, setPlayerScores] = React.useState({});
+  const [allPlayers, setAllPlayersList] = React.useState([]);
 
   const { games, players } = matchesDatabase;
-  const allPlayers = Object.keys(matchesDatabase.players);
+
+  React.useEffect(() => {
+    setAllPlayersList(Object.keys(matchesDatabase.players));
+  }, [matchesDatabase]);
 
   React.useEffect(() => {
     const createResultsObj = (playerName) => {
       // console.log("Create RESULTSOBJ");
-      const resultsArr = players[playerName].results;
+      // const resultsArr = players[playerName].results;
       let resultsObj = { wins: 0, losses: 0, draws: 0 };
+      const resultsArr = games.map((item) => {
+        const { playerA, playerB } = item;
+        if (playerA.name === playerName) return playerA.result;
+        else return playerB.result;
+      });
+
+      console.log("ARR", resultsArr);
       for (let result of resultsArr) {
         if (result === "W") resultsObj.wins += 1;
         if (result === "D") resultsObj.draws += 1;
@@ -35,7 +46,8 @@ function DisplayStatistics({ matchesDatabase }) {
     };
 
     console.log("CALC OBJ");
-    if (playerName) {
+    if (playerName && players[playerName]) {
+      console.log("Calculating for", playerName);
       createResultsObj(playerName);
       calcDataRelatedToScores(playerName);
     }
@@ -47,7 +59,9 @@ function DisplayStatistics({ matchesDatabase }) {
       <form onChange={(e) => setPlayerName(e.target.value)}>
         <label htmlFor="player">Choose a player:</label>
         <select name="player" id="player">
-          <option name="empty"> </option>
+          <option name="empty" value="">
+            {" "}
+          </option>
           {allPlayers.map((name, i) => {
             return (
               <option key={i} value={name}>
