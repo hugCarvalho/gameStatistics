@@ -14,21 +14,19 @@ function DisplayStatistics({ matchesDatabase }) {
 
   React.useEffect(() => {
     const createResultsObj = (playerName) => {
-      // console.log("Create RESULTSOBJ");
-      // const resultsArr = players[playerName].results;
-      let resultsObj = { wins: 0, losses: 0, draws: 0 };
-      const resultsArr = games.map((item) => {
-        const { playerA, playerB } = item;
+      const resultsArr = games.map((game) => {
+        const { playerA, playerB } = game;
         if (playerA.name === playerName) return playerA.result;
-        else return playerB.result;
+        else if (playerB.name === playerName) return playerB.result;
+        else return null;
       });
 
-      console.log("ARR", resultsArr);
-      for (let result of resultsArr) {
+      let resultsObj = { wins: 0, losses: 0, draws: 0 };
+      resultsArr.forEach((result) => {
         if (result === "W") resultsObj.wins += 1;
         if (result === "D") resultsObj.draws += 1;
         if (result === "L") resultsObj.losses += 1;
-      }
+      });
       setPlayerResults(resultsObj);
     };
 

@@ -1,5 +1,7 @@
 const handleSubmit = (e, setMatchesDatabase) => {
   e.preventDefault();
+
+  //The different approaches are only for practice purposes
   const { namePlayerA, round1, round2, round3 } = {
     namePlayerA: e.target.elements["playerA-name"].value,
     round1: e.target.elements["playerA-round1"].value,
