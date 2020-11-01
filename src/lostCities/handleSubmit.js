@@ -1,4 +1,4 @@
-const handleSubmit = (e, setMatchesDatabase) => {
+const handleSubmit = (e, setMatchesDatabase, dispatchError) => {
   e.preventDefault();
 
   //The different approaches are only for practice purposes
@@ -15,6 +15,13 @@ const handleSubmit = (e, setMatchesDatabase) => {
     round2: Number(e.target.elements["playerB-round2"].value),
     round3: Number(e.target.elements["playerB-round3"].value),
   };
+
+  if (namePlayerA === playerB.name) {
+    dispatchError({ type: "sameName" });
+    console.log("set error");
+    return;
+  }
+  dispatchError({ type: "none" });
 
   const totalPlayerA = +round1 + +round2 + +round3;
   const totalPlayerB = playerB.round1 + playerB.round2 + playerB.round3;

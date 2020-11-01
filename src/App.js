@@ -4,12 +4,12 @@ import LastMatch from "./baseballHighlights/LastMatch/LastMatch";
 import RenderTeamsTable from "./baseballHighlights/statistics/TeamStats/RenderTeamsTable";
 import RenderPlayersStats from "./baseballHighlights/statistics/PlayerStats/RenderPlayersStats";
 import matchReports from "./baseballHighlights/data/matchReports";
-import { LostCities } from "./lostCities/LostCities";
+import RenderLostCities from "./lostCities/RenderLostCities";
 
 function App() {
   return (
     <div className="App">
-      <LostCities />
+      <RenderLostCities />
       <LastMatch matchReports={matchReports} />
       <main>
         <RenderTeamsTable />

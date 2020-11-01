@@ -43,7 +43,7 @@ function DisplayStatistics({ matchesDatabase }) {
       });
     };
 
-    console.log("CALC OBJ");
+    // console.log("CALC OBJ");
     if (playerName && players[playerName]) {
       console.log("Calculating for", playerName);
       createResultsObj(playerName);

@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import "./LostCities.scss";
+import "./RenderLostCities.scss";
 import LastMatch from "./LastMatch";
 import Log from "./Log";
 import PlayerForm from "./PlayerForm";
@@ -42,11 +42,27 @@ const initDatabase = {
   players: {},
 };
 
-export function LostCities() {
+const initError = {
+  errorMsg: null,
+};
+
+function errorReducer(state, action) {
+  switch (action.type) {
+    case "sameName":
+      return { ...state, errorMsg: "Names must be different" };
+    case "none":
+      return initError;
+    default:
+      throw Error("Error reducer error. Probably invalid type");
+  }
+}
+
+export default function RenderLostCities() {
   const [matchesDatabase, setMatchesDatabase] = React.useState(
     () => getFromLocalStorage() || initDatabase
   );
   const [formIsOpen, setFormIsOpen] = React.useState(true);
+  const [error, dispatchError] = React.useReducer(errorReducer, initError);
 
   //LOCAL STORAGE: SET
   React.useEffect(() => {
@@ -55,14 +71,20 @@ export function LostCities() {
   }, [matchesDatabase]);
 
   React.useEffect(() => {
+    //Resets total values if closed and opened without submitting as well
     document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
   }, [formIsOpen]);
+
+  React.useEffect(() => {
+    console.log("error", error);
+  }, [error]);
 
   const resetForm = () => {
     document.querySelector("form").reset();
     document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
   };
 
+  // toggleVisibility = () => error ? {visibility: SharedWorker;}
   return (
     <div className="LostCities">
       <h1>Lost Cities</h1>
@@ -80,10 +102,16 @@ export function LostCities() {
         {formIsOpen && <button onClick={resetForm}>reset form</button>}
       </div>
 
+      <div className="error">
+        <p>{error.errorMsg}</p>
+      </div>
       {/***********  FORM */}
       {formIsOpen && (
         <>
-          <form className="form" onSubmit={(e) => handleSubmit(e, setMatchesDatabase)}>
+          <form
+            className="form"
+            onSubmit={(e) => handleSubmit(e, setMatchesDatabase, dispatchError)}
+          >
             <div className="player-forms">
               <PlayerForm player="playerA" matchesDatabase={matchesDatabase} />
               <PlayerForm player="playerB" matchesDatabase={matchesDatabase} />

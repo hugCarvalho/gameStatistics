@@ -1,6 +1,6 @@
 import React from "react";
 import "./Log.scss";
-import { DatabaseContext } from "./LostCities";
+import { DatabaseContext } from "./RenderLostCities";
 
 function setLogEntryColor(index) {
   return index % 2 ? { backgroundColor: "lightGrey" } : { backgroundColor: "darkGrey" };
