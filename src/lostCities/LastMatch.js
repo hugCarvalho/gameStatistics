@@ -1,5 +1,5 @@
 import React from "react";
-import formatDate from "./formatDate";
+import formatDate from "./fns/formatDate";
 import "./LastMatch.scss";
 
 function LastMatch({ matchesDatabase }) {

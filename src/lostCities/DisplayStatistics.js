@@ -1,10 +1,12 @@
 import React from "react";
+import PlayerStatisticsData from "./PlayerStatisticsData";
+import PlayerStatisticsSelectForm from "./PlayerStatisticsSelectForm";
 
 function DisplayStatistics({ matchesDatabase }) {
   const [playerName, setPlayerName] = React.useState("");
   const [playerResults, setPlayerResults] = React.useState({});
   const [playerScores, setPlayerScores] = React.useState({});
-  const [allPlayers, setAllPlayersList] = React.useState([]);
+  const [allPlayersArr, setAllPlayersList] = React.useState([]);
 
   const { games, players } = matchesDatabase;
 
@@ -45,55 +47,33 @@ function DisplayStatistics({ matchesDatabase }) {
 
     // console.log("CALC OBJ");
     if (playerName && players[playerName]) {
-      console.log("Calculating for", playerName);
+      // console.log("Calculating for", playerName);
       createResultsObj(playerName);
       calcDataRelatedToScores(playerName);
     }
   }, [playerName, setPlayerResults, games, players]);
 
+  const handleOnChange = (e) => {
+    setPlayerName(e.target.value);
+  };
+
   return (
     <div>
       <h2>Statistics</h2>
-      <form onChange={(e) => setPlayerName(e.target.value)}>
-        <label htmlFor="player">Choose a player:</label>
-        <select name="player" id="player">
-          <option name="empty" value="">
-            {" "}
-          </option>
-          {allPlayers.map((name, i) => {
-            return (
-              <option key={i} value={name}>
-                {name}
-              </option>
-            );
-          })}
-        </select>
-      </form>
-      Select Player:
-      <div className="items item--1">
-        Games:{" "}
-        {matchesDatabase.players[playerName]
-          ? matchesDatabase.players[playerName].games.length
-          : " ---"}{" "}
-      </div>
-      <div className="items item--2">
-        Biggest Score: {players[playerName] ? playerScores.maxScore : " ---"}
-      </div>
-      <div className="items item--3">
-        Lowest Score: {players[playerName] ? playerScores.minScore : " ---"}
-      </div>
-      <div className="items item--4">
-        WINS:
-        {players[playerName] ? playerResults.wins : " ---"}
-      </div>
-      <div className="items item--5">
-        Draws:
-        {players[playerName] ? playerResults.draws : " ---"}
-      </div>
-      <div className="items item--6">
-        Losses:
-        {players[playerName] ? playerResults.losses : " ---"}
-      </div>
+
+      <PlayerStatisticsSelectForm
+        setPlayerName={setPlayerName}
+        allPlayers={allPlayersArr}
+        handleOnChange={handleOnChange}
+      />
+
+      <PlayerStatisticsData
+        matchesDatabase={matchesDatabase}
+        playerName={playerName}
+        players={players}
+        playerScores={playerScores}
+        playerResults={playerResults}
+      />
     </div>
   );
 }

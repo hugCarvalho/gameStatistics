@@ -76,7 +76,7 @@ export default function RenderLostCities() {
   }, [formIsOpen]);
 
   React.useEffect(() => {
-    console.log("error", error);
+    // console.log("error", error);
   }, [error]);
 
   const resetForm = () => {

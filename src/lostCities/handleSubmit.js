@@ -3,14 +3,14 @@ const handleSubmit = (e, setMatchesDatabase, dispatchError) => {
 
   //The different approaches are only for practice purposes
   const { namePlayerA, round1, round2, round3 } = {
-    namePlayerA: e.target.elements["playerA-name"].value,
+    namePlayerA: e.target.elements["playerA-name"].value.toLowerCase(),
     round1: e.target.elements["playerA-round1"].value,
     round2: e.target.elements["playerA-round2"].value,
     round3: e.target.elements["playerA-round3"].value,
   };
 
   const playerB = {
-    name: e.target.elements["playerB-name"].value,
+    name: e.target.elements["playerB-name"].value.toLowerCase(),
     round1: Number(e.target.elements["playerB-round1"].value),
     round2: Number(e.target.elements["playerB-round2"].value),
     round3: Number(e.target.elements["playerB-round3"].value),
