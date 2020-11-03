@@ -53,7 +53,7 @@ function errorReducer(state, action) {
     case "none":
       return initError;
     default:
-      throw Error("Error reducer error. Probably invalid type");
+      throw Error("Error reducer error. Probably invalid type"); //development only
   }
 }
 
@@ -84,7 +84,6 @@ export default function RenderLostCities() {
     document.querySelectorAll(".reset").forEach((el) => (el.value = 0));
   };
 
-  // toggleVisibility = () => error ? {visibility: SharedWorker;}
   return (
     <div className="LostCities">
       <h1>Lost Cities</h1>

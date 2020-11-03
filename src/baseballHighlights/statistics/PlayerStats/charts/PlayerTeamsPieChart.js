@@ -4,20 +4,20 @@ import { Pie } from "react-chartjs-2";
 import { teamStatsPerPlayer } from "../fns/PlayersStatsFn";
 import matchReport from "../../../data/matchReports";
 
-//TODO: improve dynamic content
-const teamStatsHugo = teamStatsPerPlayer(matchReport, "Hugo");
-const teamStatsEddie = teamStatsPerPlayer(matchReport, "Eddie");
+//TODO: improve dynamic behaviour
+const teamStatsPlayerA = teamStatsPerPlayer(matchReport, "Hugo");
+const teamStatsPlayerB = teamStatsPerPlayer(matchReport, "Eddie");
 
-const dataWon = {
+const dataWonA = {
   labels: ["Boston", "Los Angeles", "New York", "San Francisco"],
 
   datasets: [
     {
       data: [
-        teamStatsHugo[0][1].won,
-        teamStatsHugo[1][1].won,
-        teamStatsHugo[2][1].won,
-        teamStatsHugo[3][1].won,
+        teamStatsPlayerA[0][1].won,
+        teamStatsPlayerA[1][1].won,
+        teamStatsPlayerA[2][1].won,
+        teamStatsPlayerA[3][1].won,
       ],
       backgroundColor: [
         "rgba(54, 162, 235, 0.2)",
@@ -35,17 +35,17 @@ const dataWon = {
     },
   ],
 };
-const dataWon2 = {
+const dataWonB = {
   labels: ["Boston", "Los Angeles", "New York", "San Francisco"],
 
   datasets: [
     {
       label: "# of Votes",
       data: [
-        teamStatsEddie[0][1].won,
-        teamStatsEddie[1][1].won,
-        teamStatsEddie[2][1].won,
-        teamStatsEddie[3][1].won,
+        teamStatsPlayerB[0][1].won,
+        teamStatsPlayerB[1][1].won,
+        teamStatsPlayerB[2][1].won,
+        teamStatsPlayerB[3][1].won,
       ],
       backgroundColor: [
         "rgba(54, 162, 235, 0.3)",
@@ -71,10 +71,10 @@ const dataLost = {
     {
       label: "# of Votes",
       data: [
-        teamStatsHugo[0][1].lost,
-        teamStatsHugo[1][1].lost,
-        teamStatsHugo[2][1].lost,
-        teamStatsHugo[3][1].lost,
+        teamStatsPlayerA[0][1].lost,
+        teamStatsPlayerA[1][1].lost,
+        teamStatsPlayerA[2][1].lost,
+        teamStatsPlayerA[3][1].lost,
       ],
       backgroundColor: [
         "rgba(54, 162, 235, 0.2)",
@@ -99,10 +99,10 @@ const dataLost2 = {
     {
       label: "# of Votes",
       data: [
-        teamStatsEddie[0][1].lost,
-        teamStatsEddie[1][1].lost,
-        teamStatsEddie[2][1].lost,
-        teamStatsEddie[3][1].lost,
+        teamStatsPlayerB[0][1].lost,
+        teamStatsPlayerB[1][1].lost,
+        teamStatsPlayerB[2][1].lost,
+        teamStatsPlayerB[3][1].lost,
       ],
       backgroundColor: [
         "rgba(54, 162, 235, 0.2)",
@@ -138,11 +138,11 @@ function PlayerTeamsPieChart() {
   return (
     <div className="PlayerTeamsPieChart">
       <div className="wrapper__won">
-        <Pie data={dataWon} options={optionsWon} className="top" />
+        <Pie data={dataWonA} options={optionsWon} className="top" />
         <Pie data={dataLost} options={optionsLost} />
       </div>
       <div className="wrapper__lost">
-        <Pie data={dataWon2} options={optionsWon} className="top" />
+        <Pie data={dataWonB} options={optionsWon} className="top" />
         <Pie data={dataLost2} options={optionsLost} />
       </div>
     </div>

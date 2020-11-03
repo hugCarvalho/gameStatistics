@@ -4,18 +4,21 @@ import matchReport from "../../../data/matchReports";
 import { numOfGamesPlayedByPlayer, numOfVictories } from "../fns/PlayersStatsFn";
 
 //TODO: make dynamic
+const playerA = "Hugo";
+const playerB = "Eddie";
 
 const playerChartsObj = {
-  Hugo: {
-    wins: () => numOfVictories(matchReport, "Hugo"),
+  [playerA]: {
+    wins: () => numOfVictories(matchReport, playerA),
     defeats: () =>
-      numOfGamesPlayedByPlayer(matchReport, "Hugo") - numOfVictories(matchReport, "Hugo"),
+      numOfGamesPlayedByPlayer(matchReport, playerA) -
+      numOfVictories(matchReport, playerA),
   },
-  Eddie: {
-    wins: () => numOfVictories(matchReport, "Eddie"),
+  [playerB]: {
+    wins: () => numOfVictories(matchReport, playerB),
     defeats: () =>
-      numOfGamesPlayedByPlayer(matchReport, "Eddie") -
-      numOfVictories(matchReport, "Eddie"),
+      numOfGamesPlayedByPlayer(matchReport, playerB) -
+      numOfVictories(matchReport, playerB),
   },
 };
 
@@ -23,16 +26,16 @@ const data = {
   labels: ["Victories", "Defeats"],
   datasets: [
     {
-      label: "Hugo",
+      label: playerA,
       barPercentage: 0.5,
-      data: [playerChartsObj.Hugo.wins(), playerChartsObj.Hugo.defeats()],
+      data: [playerChartsObj[playerA].wins(), playerChartsObj[playerA].defeats()],
       backgroundColor: ["rgba(153, 205, 50, 0.6)", "rgba(153, 205, 50, 0.6)"],
       borderColor: ["rgba(153, 205, 50, 1)", "rgba(153, 205, 50, 1)"],
       borderWidth: 1,
     },
     {
-      label: "Eddie",
-      data: [playerChartsObj.Eddie.wins(), playerChartsObj.Eddie.defeats()],
+      label: playerB,
+      data: [playerChartsObj[playerB].wins(), playerChartsObj[playerB].defeats()],
       backgroundColor: ["rgb(11, 128, 238, .6)", "rgb(11, 128, 238, .6)"],
       borderColor: ["rgb(11, 128, 238, 1)", "rgb(11, 128, 238, 1)"],
       borderWidth: 1,
